@@ -1,0 +1,26 @@
+test #comment
+test
+"static text"
+int real bool string #comment
+true false
+arr if else for fun
+rec typ then
+var where while
++ - * / % ! & | 
+== <> <= >=
+< > =
+()
+{}
+[]
+.,:;
+(,)
+[;]
+{.:}
+6663629#
+1234.1
+1234.23#another comment
+1234.3455
+1234.1e12
+1234.1e+12#and another comment
+1234.1e-12
+#this should work too

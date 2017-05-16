@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="C:\Users\Jure\Documents\rust-projects\ProteusCompiler\xsl\lexanal.xsl"?>
+<lexanal>
+<symbol token="IDENTIFIER"  lexeme="test">
+<position filename="p1.proteus" begLine="1" begColumn="1" endLine="1" endColumn="4"/> 
+</symbol>
+<symbol token="IDENTIFIER"  lexeme="test">
+<position filename="p1.proteus" begLine="1" begColumn="7" endLine="1" endColumn="10"/> 
+</symbol>
+<symbol token="STRINGCONST"  lexeme="static text">
+<position filename="p1.proteus" begLine="2" begColumn="1" endLine="2" endColumn="11"/> 
+</symbol>
+<symbol token="INT">
+<position filename="p1.proteus" begLine="3" begColumn="1" endLine="3" endColumn="3"/> 
+</symbol>
+<symbol token="REAL">
+<position filename="p1.proteus" begLine="3" begColumn="6" endLine="3" endColumn="9"/> 
+</symbol>
+<symbol token="BOOL">
+<position filename="p1.proteus" begLine="3" begColumn="12" endLine="3" endColumn="15"/> 
+</symbol>
+<symbol token="STRING">
+<position filename="p1.proteus" begLine="3" begColumn="18" endLine="3" endColumn="23"/> 
+</symbol>
+<symbol token="BOOLCONST"  lexeme="true">
+<position filename="p1.proteus" begLine="3" begColumn="26" endLine="3" endColumn="29"/> 
+</symbol>
+<symbol token="BOOLCONST"  lexeme="false">
+<position filename="p1.proteus" begLine="3" begColumn="42" endLine="3" endColumn="46"/> 
+</symbol>
+<symbol token="ARR">
+<position filename="p1.proteus" begLine="4" begColumn="1" endLine="4" endColumn="3"/> 
+</symbol>
+<symbol token="IF">
+<position filename="p1.proteus" begLine="4" begColumn="6" endLine="4" endColumn="7"/> 
+</symbol>
+<symbol token="ELSE">
+<position filename="p1.proteus" begLine="4" begColumn="10" endLine="4" endColumn="13"/> 
+</symbol>
+<symbol token="FOR">
+<position filename="p1.proteus" begLine="4" begColumn="16" endLine="4" endColumn="18"/> 
+</symbol>
+<symbol token="FUN">
+<position filename="p1.proteus" begLine="4" begColumn="21" endLine="4" endColumn="23"/> 
+</symbol>
+<symbol token="REC">
+<position filename="p1.proteus" begLine="5" begColumn="1" endLine="5" endColumn="3"/> 
+</symbol>
+<symbol token="TYP">
+<position filename="p1.proteus" begLine="5" begColumn="6" endLine="5" endColumn="8"/> 
+</symbol>
+<symbol token="THEN">
+<position filename="p1.proteus" begLine="5" begColumn="11" endLine="5" endColumn="14"/> 
+</symbol>
+<symbol token="VAR">
+<position filename="p1.proteus" begLine="6" begColumn="1" endLine="6" endColumn="3"/> 
+</symbol>
+<symbol token="WHERE">
+<position filename="p1.proteus" begLine="6" begColumn="6" endLine="6" endColumn="10"/> 
+</symbol>
+<symbol token="WHILE">
+<position filename="p1.proteus" begLine="6" begColumn="13" endLine="6" endColumn="17"/> 
+</symbol>
+<symbol token="ADD">
+<position filename="p1.proteus" begLine="7" begColumn="1" endLine="7" endColumn="1"/> 
+</symbol>
+<symbol token="SUB">
+<position filename="p1.proteus" begLine="7" begColumn="3" endLine="7" endColumn="3"/> 
+</symbol>
+<symbol token="MUL">
+<position filename="p1.proteus" begLine="7" begColumn="5" endLine="7" endColumn="5"/> 
+</symbol>
+<symbol token="DIV">
+<position filename="p1.proteus" begLine="7" begColumn="7" endLine="7" endColumn="7"/> 
+</symbol>
+<symbol token="MOD">
+<position filename="p1.proteus" begLine="7" begColumn="9" endLine="7" endColumn="9"/> 
+</symbol>
+<symbol token="NOT">
+<position filename="p1.proteus" begLine="7" begColumn="11" endLine="7" endColumn="11"/> 
+</symbol>
+<symbol token="AND">
+<position filename="p1.proteus" begLine="7" begColumn="13" endLine="7" endColumn="13"/> 
+</symbol>
+<symbol token="OR">
+<position filename="p1.proteus" begLine="7" begColumn="15" endLine="7" endColumn="15"/> 
+</symbol>
+<symbol token="EQU">
+<position filename="p1.proteus" begLine="8" begColumn="1" endLine="8" endColumn="2"/> 
+</symbol>
+<symbol token="NEQ">
+<position filename="p1.proteus" begLine="8" begColumn="4" endLine="8" endColumn="5"/> 
+</symbol>
+<symbol token="LEQ">
+<position filename="p1.proteus" begLine="8" begColumn="7" endLine="8" endColumn="8"/> 
+</symbol>
+<symbol token="GEQ">
+<position filename="p1.proteus" begLine="8" begColumn="10" endLine="8" endColumn="11"/> 
+</symbol>
+<symbol token="LTH">
+<position filename="p1.proteus" begLine="9" begColumn="1" endLine="9" endColumn="1"/> 
+</symbol>
+<symbol token="GTH">
+<position filename="p1.proteus" begLine="9" begColumn="4" endLine="9" endColumn="4"/> 
+</symbol>
+<symbol token="ASSIGN">
+<position filename="p1.proteus" begLine="9" begColumn="7" endLine="9" endColumn="7"/> 
+</symbol>
+<symbol token="LPARENT">
+<position filename="p1.proteus" begLine="10" begColumn="1" endLine="10" endColumn="1"/> 
+</symbol>
+<symbol token="RPARENT">
+<position filename="p1.proteus" begLine="10" begColumn="2" endLine="10" endColumn="2"/> 
+</symbol>
+<symbol token="LBRACE">
+<position filename="p1.proteus" begLine="11" begColumn="1" endLine="11" endColumn="1"/> 
+</symbol>
+<symbol token="RBRACE">
+<position filename="p1.proteus" begLine="11" begColumn="2" endLine="11" endColumn="2"/> 
+</symbol>
+<symbol token="LBRACKET">
+<position filename="p1.proteus" begLine="12" begColumn="1" endLine="12" endColumn="1"/> 
+</symbol>
+<symbol token="RBRACKET">
+<position filename="p1.proteus" begLine="12" begColumn="2" endLine="12" endColumn="2"/> 
+</symbol>
+<symbol token="DOT">
+<position filename="p1.proteus" begLine="13" begColumn="1" endLine="13" endColumn="1"/> 
+</symbol>
+<symbol token="COMMA">
+<position filename="p1.proteus" begLine="13" begColumn="2" endLine="13" endColumn="2"/> 
+</symbol>
+<symbol token="COLON">
+<position filename="p1.proteus" begLine="13" begColumn="3" endLine="13" endColumn="3"/> 
+</symbol>
+<symbol token="SEMIC">
+<position filename="p1.proteus" begLine="13" begColumn="4" endLine="13" endColumn="4"/> 
+</symbol>
+<symbol token="LPARENT">
+<position filename="p1.proteus" begLine="14" begColumn="1" endLine="14" endColumn="1"/> 
+</symbol>
+<symbol token="COMMA">
+<position filename="p1.proteus" begLine="14" begColumn="2" endLine="14" endColumn="2"/> 
+</symbol>
+<symbol token="RPARENT">
+<position filename="p1.proteus" begLine="14" begColumn="3" endLine="14" endColumn="3"/> 
+</symbol>
+<symbol token="LBRACKET">
+<position filename="p1.proteus" begLine="15" begColumn="1" endLine="15" endColumn="1"/> 
+</symbol>
+<symbol token="SEMIC">
+<position filename="p1.proteus" begLine="15" begColumn="2" endLine="15" endColumn="2"/> 
+</symbol>
+<symbol token="RBRACKET">
+<position filename="p1.proteus" begLine="15" begColumn="3" endLine="15" endColumn="3"/> 
+</symbol>
+<symbol token="LBRACE">
+<position filename="p1.proteus" begLine="16" begColumn="1" endLine="16" endColumn="1"/> 
+</symbol>
+<symbol token="DOT">
+<position filename="p1.proteus" begLine="16" begColumn="2" endLine="16" endColumn="2"/> 
+</symbol>
+<symbol token="COLON">
+<position filename="p1.proteus" begLine="16" begColumn="3" endLine="16" endColumn="3"/> 
+</symbol>
+<symbol token="RBRACE">
+<position filename="p1.proteus" begLine="16" begColumn="4" endLine="16" endColumn="4"/> 
+</symbol>
+<symbol token="INTCONST"  lexeme="6663629">
+<position filename="p1.proteus" begLine="17" begColumn="1" endLine="17" endColumn="7"/> 
+</symbol>
+<symbol token="REALCONST"  lexeme="1234.1">
+<position filename="p1.proteus" begLine="17" begColumn="9" endLine="17" endColumn="14"/> 
+</symbol>
+<symbol token="REALCONST"  lexeme="1234.23">
+<position filename="p1.proteus" begLine="18" begColumn="1" endLine="18" endColumn="7"/> 
+</symbol>
+<symbol token="REALCONST"  lexeme="1234.3455">
+<position filename="p1.proteus" begLine="18" begColumn="9" endLine="18" endColumn="17"/> 
+</symbol>
+<symbol token="REALCONST"  lexeme="1234.1e12">
+<position filename="p1.proteus" begLine="19" begColumn="1" endLine="19" endColumn="9"/> 
+</symbol>
+<symbol token="REALCONST"  lexeme="1234.1e+12">
+<position filename="p1.proteus" begLine="20" begColumn="1" endLine="20" endColumn="10"/> 
+</symbol>
+<symbol token="REALCONST"  lexeme="1234.1e-12">
+<position filename="p1.proteus" begLine="20" begColumn="12" endLine="20" endColumn="21"/> 
+</symbol>
+</lexanal>
