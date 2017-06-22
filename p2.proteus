@@ -1,0 +1,2 @@
+(getInt(&input),{x=factoriel(input)},putInt(x)) where var input:int; var x:int;
+fun factoriel(n:int):int={if n<=0 then {x=1} else {x=n*factoriel(n-1)}},x;

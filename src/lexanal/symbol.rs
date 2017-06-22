@@ -1,23 +1,160 @@
 use lexanal::position::Position;
 use xml::XMLable;
 use std::io::Write;
+//use synanal::syntoken::SyntaxToken;
+use std::fmt::Display;
+use std::fmt;
 
-pub struct Symbol<'a> 
+#[derive(Debug)]
+pub struct Symbol 
 {
     token : Token,
-    //lexeme : String,
-    position : Position<'a>,
+    pub lexeme : String,
+    position : Position,
 } 
 
-impl<'a> Symbol<'a> 
+impl Symbol 
 {
-    pub fn new(token : Token, position : Position<'a>)  -> Option<Symbol>
+    pub fn new(token : Token, lexeme : String, position : Position)  -> Option<Symbol>
     {
         match token 
         {
             Token::EOF => None,
-            _ => Some(Symbol { token,  position }),
+            _ => Some(Symbol { token, lexeme,  position }),
         }
+    }
+
+    pub fn get_token(&self) -> Token
+    {
+        self.token
+    }
+    
+    pub fn get_ref_position(&self) -> &Position
+    {
+        &self.position
+    }
+
+    pub fn is_token(&self, token : Token) -> bool 
+    {
+        self.token == token
+    }
+
+/*
+    pub fn check_token(&self, syn_token : SyntaxToken) -> bool 
+    {
+        match self.lex_token 
+        {
+            LexToken::IDENTIFIER(_) => syn_token == SyntaxToken::IDENTIFIER,
+            LexToken::INTCONST(_) => syn_token == SyntaxToken::INTCONST,
+            LexToken::REALCONST(_) => syn_token == SyntaxToken::REALCONST,
+            LexToken::BOOLCONST(_) => syn_token == SyntaxToken::BOOLCONST,
+            LexToken::STRINGCONST(_) => syn_token == SyntaxToken::STRINGCONST,
+            LexToken::INT => syn_token == SyntaxToken::INT,
+            LexToken::REAL => syn_token == SyntaxToken::REAL,
+            LexToken::BOOL => syn_token == SyntaxToken::BOOL,
+            LexToken::STRING => syn_token == SyntaxToken::STRING,
+            LexToken::ADD => syn_token == SyntaxToken::ADD,
+            LexToken::SUB => syn_token == SyntaxToken::SUB,
+            LexToken::MUL => syn_token == SyntaxToken::MUL,
+            LexToken::DIV => syn_token == SyntaxToken::DIV,
+            LexToken::MOD => syn_token == SyntaxToken::MOD,
+            LexToken::NOT => syn_token == SyntaxToken::NOT,
+            LexToken::AND => syn_token == SyntaxToken::AND,
+            LexToken::OR => syn_token == SyntaxToken::OR,
+            LexToken::EQU => syn_token == SyntaxToken::EQU,
+            LexToken::NEQ => syn_token == SyntaxToken::NEQ,
+            LexToken::LTH => syn_token == SyntaxToken::LTH,
+            LexToken::GTH => syn_token == SyntaxToken::GTH,
+            LexToken::LEQ => syn_token == SyntaxToken::LEQ,
+            LexToken::GEQ => syn_token == SyntaxToken::GEQ,
+            LexToken::ASSIGN => syn_token == SyntaxToken::ASSIGN,
+            LexToken::LPARENT => syn_token == SyntaxToken::LPARENT,
+            LexToken::RPARENT => syn_token == SyntaxToken::RPARENT,
+            LexToken::LBRACKET => syn_token == SyntaxToken::LBRACKET,
+            LexToken::RBRACKET => syn_token == SyntaxToken::RBRACKET,
+            LexToken::LBRACE => syn_token == SyntaxToken::LBRACE,
+            LexToken::RBRACE => syn_token == SyntaxToken::RBRACE,
+            LexToken::DOT => syn_token == SyntaxToken::DOT,
+            LexToken::COMMA => syn_token == SyntaxToken::COMMA,
+            LexToken::COLON => syn_token == SyntaxToken::COLON,
+            LexToken::SEMIC => syn_token == SyntaxToken::SEMIC,
+            LexToken::ARR => syn_token == SyntaxToken::ARR,
+            LexToken::FOR => syn_token == SyntaxToken::FOR,
+            LexToken::IF => syn_token == SyntaxToken::IF,
+            LexToken::ELSE => syn_token == SyntaxToken::ELSE,
+            LexToken::FUN => syn_token == SyntaxToken::FUN,
+            LexToken::REC => syn_token == SyntaxToken::REC,
+            LexToken::THEN => syn_token == SyntaxToken::THEN,
+            LexToken::TYP => syn_token == SyntaxToken::TYP,
+            LexToken::VAR => syn_token == SyntaxToken::VAR,
+            LexToken::WHERE => syn_token == SyntaxToken::WHERE,
+            LexToken::WHILE => syn_token == SyntaxToken::WHILE,
+            LexToken::EOF => false,
+        }
+    }
+
+    fn get_symbol_string(&self) -> &str
+    {
+        match self.lex_token 
+        {
+            LexToken::IDENTIFIER(ref identifier) => identifier,
+            LexToken::INTCONST(ref constant) => constant,
+            LexToken::REALCONST(ref constant) => constant,
+            LexToken::BOOLCONST(ref constant) => constant,
+            LexToken::STRINGCONST(ref constant) => constant,
+            LexToken::INT => "int",
+            LexToken::REAL => "real",
+            LexToken::BOOL => "bool",
+            LexToken::STRING => "string",
+            LexToken::ADD => "+",
+            LexToken::SUB => "-",
+            LexToken::MUL => "*",
+            LexToken::DIV => "/",
+            LexToken::MOD => "%",
+            LexToken::NOT => "!",
+            LexToken::AND => "&",
+            LexToken::OR => "|",
+            LexToken::EQU => "==",
+            LexToken::NEQ => "<>",
+            LexToken::LTH => "<",
+            LexToken::GTH => ">",
+            LexToken::LEQ => "<=",
+            LexToken::GEQ => ">=",
+            LexToken::ASSIGN => "=",
+            LexToken::LPARENT => "(",
+            LexToken::RPARENT => "",
+            LexToken::LBRACKET => "[",
+            LexToken::RBRACKET => "]",
+            LexToken::LBRACE => "{{",
+            LexToken::RBRACE => "}}",
+            LexToken::DOT => ".",
+            LexToken::COMMA => ",",
+            LexToken::COLON => ":",
+            LexToken::SEMIC => ";",
+            LexToken::ARR => "arr",
+            LexToken::FOR => "for",
+            LexToken::IF => "if",
+            LexToken::ELSE => "else",
+            LexToken::FUN => "fun",
+            LexToken::REC => "rec",
+            LexToken::THEN => "then",
+            LexToken::TYP => "typ",
+            LexToken::VAR => "var",
+            LexToken::WHERE => "where",
+            LexToken::WHILE => "while",
+            LexToken::EOF => "EOF",
+        }   
+    }
+    */
+
+    pub fn get_ref_lexeme(&self) -> &str
+    {
+        self.lexeme.as_str()
+    }
+
+    pub fn get_position(&self) -> &Position 
+    {
+        &self.position
     }
 }
 
@@ -41,45 +178,43 @@ fn str_to_xml(lexeme : &str) -> String
              chr => lex.push(chr),
         }
     }
-
     lex
-    
 }
 
 
-impl<'a> XMLable for Symbol<'a> 
+impl XMLable for Symbol
 {
     fn to_xml(&self, xml : &mut Write) 
     {
         match self.token 
         {
-            Token::IDENTIFIER{ref lexeme} => 
+            Token::IDENTIFIER => 
             {
-                writeln!(xml, "<symbol token=\"IDENTIFIER\"  lexeme=\"{}\">", str_to_xml(lexeme)).unwrap(); 
+                writeln!(xml, "<symbol token=\"IDENTIFIER\"  lexeme=\"{}\">", str_to_xml(&self.lexeme)).unwrap(); 
                 self.position.to_xml(xml);
                 writeln!(xml,"</symbol>").unwrap();
             },
-            Token::INTCONST{ref lexeme} => 
+            Token::INTCONST => 
             {
-                writeln!(xml, "<symbol token=\"INTCONST\"  lexeme=\"{}\">", str_to_xml(lexeme)).unwrap(); 
+                writeln!(xml, "<symbol token=\"INTCONST\"  lexeme=\"{}\">", str_to_xml(&self.lexeme)).unwrap(); 
                 self.position.to_xml(xml);
                 writeln!(xml,"</symbol>").unwrap();
             },
-            Token::REALCONST{ref lexeme} => 
+            Token::REALCONST => 
             {
-                writeln!(xml, "<symbol token=\"REALCONST\"  lexeme=\"{}\">", str_to_xml(lexeme)).unwrap(); 
+                writeln!(xml, "<symbol token=\"REALCONST\"  lexeme=\"{}\">", str_to_xml(&self.lexeme)).unwrap(); 
                 self.position.to_xml(xml);
                 writeln!(xml,"</symbol>").unwrap();
             },
-            Token::BOOLCONST{ref lexeme} => 
+            Token::BOOLCONST => 
             {
-                writeln!(xml, "<symbol token=\"BOOLCONST\"  lexeme=\"{}\">", str_to_xml(lexeme)).unwrap(); 
+                writeln!(xml, "<symbol token=\"BOOLCONST\"  lexeme=\"{}\">", str_to_xml(&self.lexeme)).unwrap(); 
                 self.position.to_xml(xml);
                 writeln!(xml,"</symbol>").unwrap();
             },
-            Token::STRINGCONST{ref lexeme} => 
+            Token::STRINGCONST => 
             {
-                writeln!(xml, "<symbol token=\"STRINGCONST\"  lexeme=\"{}\">", str_to_xml(lexeme)).unwrap(); 
+                writeln!(xml, "<symbol token=\"STRINGCONST\"  lexeme=\"{}\">", str_to_xml(&self.lexeme)).unwrap(); 
                 self.position.to_xml(xml);
                 writeln!(xml,"</symbol>").unwrap();
             },
@@ -329,16 +464,26 @@ impl<'a> XMLable for Symbol<'a>
 }
 
 
-#[derive(Debug,Clone)]
+
+impl Display for Symbol 
+{
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result 
+    {
+        write!(f, "{}", self.lexeme)
+    }
+}
+
+
+#[derive(Debug,Copy,Clone,PartialEq)]
 pub enum Token 
 {
-    IDENTIFIER{lexeme : String},
+    IDENTIFIER,
 
     // constants
-    INTCONST{lexeme : String},
-    REALCONST{lexeme : String},
-    BOOLCONST{lexeme : String},
-    STRINGCONST{lexeme : String},
+    INTCONST,
+    REALCONST,
+    BOOLCONST,
+    STRINGCONST,
 
     //types
     INT,

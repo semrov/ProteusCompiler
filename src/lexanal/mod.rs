@@ -5,6 +5,7 @@ pub mod run;
 use std::io;
 use std::io::{Read,BufReader, Seek,SeekFrom};
 use std::fs::File;
+use std::rc::Rc;
 use std::collections::HashMap;
 use lexanal::symbol::{Symbol,Token};
 use self::position::Position;
@@ -30,7 +31,7 @@ enum ParserState
 
 pub struct LexicalAnalyzer 
 {
-    file_name : String,
+    file_name : Rc<String>,
     reader : BufReader<File>,
     line  : u64,
     column : u64,
@@ -57,19 +58,20 @@ impl LexicalAnalyzer {
         reserved_words.insert("var",Token::VAR);
         reserved_words.insert("where",Token::WHERE);
         reserved_words.insert("while",Token::WHILE);
-        reserved_words.insert("true",Token::BOOLCONST{lexeme : "true".to_string()});
-        reserved_words.insert("false",Token::BOOLCONST{lexeme : "false".to_string()});
+        reserved_words.insert("true",Token::BOOLCONST);
+        reserved_words.insert("false",Token::BOOLCONST);
 
         reserved_words
     }
 
-    fn get_symbol_type<'a>(&'a self, lexeme : String, begin_column : u64) -> Option<Symbol<'a>> 
+    fn get_symbol_type(&self, lexeme : String, begin_column : u64) -> Option<Symbol> 
     {
         let p = self.get_literal_position(begin_column, lexeme.len() as u64);
-        match self.reserved_words.get(&*lexeme) 
+        //let r = lexeme.as_str()
+        match self.reserved_words.get(lexeme.as_str()) 
         {
-            Some(token) => Symbol::new(token.clone(),p),
-            None => Symbol::new(Token::IDENTIFIER{lexeme}, p),
+            Some(token) => Symbol::new(*token, lexeme, p),
+            None => Symbol::new(Token::IDENTIFIER, lexeme, p),
         }
     }
  
@@ -92,7 +94,7 @@ impl LexicalAnalyzer {
 
         Ok (LexicalAnalyzer 
         {
-            file_name : program_name,
+            file_name : Rc::new(program_name),
             reader : reader,
             line : 1, 
             column : 1,
@@ -125,12 +127,12 @@ impl LexicalAnalyzer {
          self.reader.seek(SeekFrom::Current(-1)).unwrap();
       }
 
-     fn get_literal_position<'a>(&'a self, begin_column : u64, lenght : u64) -> Position
+     fn get_literal_position(&self, begin_column : u64, lenght : u64) -> Position
      {
         Position::new(&self.file_name, self.line,begin_column,self.line,begin_column + lenght -1)
      }
 
-     pub fn get_next_symbol<'a>(&'a mut self) -> Result<Option<Symbol<'a>>, io::Error> 
+     pub fn get_next_symbol(&mut self) -> Result<Option<Symbol>, io::Error> 
      {
          let mut state : ParserState = ParserState::InitialState;
          let mut literal = String::new();
@@ -142,10 +144,9 @@ impl LexicalAnalyzer {
              {
                  Ok(Some(c)) =>
                  {
-                      //literal.push(c);
                       Some(c)
                  },
-                 Ok(None) => None, //return Ok(Symbol::new(Token::EOF, self.get_literal_position(literal_begin,0))),
+                 Ok(None) => None, 
                  Err(e) => return Err(e),
              };
 
@@ -156,38 +157,37 @@ impl LexicalAnalyzer {
                      let chr = match chr 
                     {
                         Some(c) => c,
-                        None => return Ok(Symbol::new(Token::EOF, self.get_literal_position(literal_begin,0))),
+                        None => return Ok(None), // Symbol::new(Token::EOF, self.get_literal_position(literal_begin,0))
                     };
                     match chr 
                     {
-                        //self.get_literal_position(literal_begin,literal.len() as u64)
                         ' '  => literal_begin += 1,
                         '\t' => literal_begin += 4,
                         '\r' => { self.column += 1; literal_begin +=1;}
                         '\n' =>{self.line +=1; self.column = 1; literal_begin =1;},
-                        '+' => return Ok(Symbol::new(Token::ADD, self.get_literal_position(literal_begin,1))), 
-                        '-' => return Ok(Symbol::new(Token::SUB, self.get_literal_position(literal_begin,1))),
-                        '*' => return Ok(Symbol::new(Token::MUL, self.get_literal_position(literal_begin,1))),
-                        '/' => return Ok(Symbol::new(Token::DIV, self.get_literal_position(literal_begin,1))),
-                        '%' => return Ok(Symbol::new(Token::MOD, self.get_literal_position(literal_begin,1))),
-                        '!' => return Ok(Symbol::new(Token::NOT, self.get_literal_position(literal_begin,1))),
-                        '&' => return Ok(Symbol::new(Token::AND, self.get_literal_position(literal_begin,1))),
-                        '|' => return Ok(Symbol::new(Token::OR, self.get_literal_position(literal_begin,1))),
+                        '+' => return Ok(Symbol::new(Token::ADD, String::from("+"), self.get_literal_position(literal_begin,1))), 
+                        '-' => return Ok(Symbol::new(Token::SUB, String::from("-"), self.get_literal_position(literal_begin,1))),
+                        '*' => return Ok(Symbol::new(Token::MUL, String::from("*"), self.get_literal_position(literal_begin,1))),
+                        '/' => return Ok(Symbol::new(Token::DIV, String::from("/"), self.get_literal_position(literal_begin,1))),
+                        '%' => return Ok(Symbol::new(Token::MOD, String::from("%"), self.get_literal_position(literal_begin,1))),
+                        '!' => return Ok(Symbol::new(Token::NOT, String::from("!"), self.get_literal_position(literal_begin,1))),
+                        '&' => return Ok(Symbol::new(Token::AND, String::from("&"), self.get_literal_position(literal_begin,1))),
+                        '|' => return Ok(Symbol::new(Token::OR, String::from("|"), self.get_literal_position(literal_begin,1))),
                         '=' => state = ParserState::EqualsState,
                         '<' => state = ParserState::LessState,
                         '>' => state = ParserState::GraterState,
                         '#' => state = ParserState::CommentState,
                         '\"' => state = ParserState::StringConstState,
-                        '(' =>  return Ok(Symbol::new(Token::LPARENT, self.get_literal_position(literal_begin,1))),
-                        ')' =>  return Ok(Symbol::new(Token::RPARENT, self.get_literal_position(literal_begin,1))),
-                        '[' =>  return Ok(Symbol::new(Token::LBRACKET, self.get_literal_position(literal_begin,1))),
-                        ']' =>  return Ok(Symbol::new(Token::RBRACKET, self.get_literal_position(literal_begin,1))),
-                        '{' =>  return Ok(Symbol::new(Token::LBRACE, self.get_literal_position(literal_begin,1))),
-                        '}' =>  return Ok(Symbol::new(Token::RBRACE, self.get_literal_position(literal_begin,1))),
-                        '.' =>  return Ok(Symbol::new(Token::DOT, self.get_literal_position(literal_begin,1))),
-                        ',' =>  return Ok(Symbol::new(Token::COMMA, self.get_literal_position(literal_begin,1))),
-                        ':' =>  return Ok(Symbol::new(Token::COLON, self.get_literal_position(literal_begin,1))),
-                        ';' =>  return Ok(Symbol::new(Token::SEMIC, self.get_literal_position(literal_begin,1))),
+                        '(' =>  return Ok(Symbol::new(Token::LPARENT, String::from("("), self.get_literal_position(literal_begin,1))),
+                        ')' =>  return Ok(Symbol::new(Token::RPARENT, String::from(")"), self.get_literal_position(literal_begin,1))),
+                        '[' =>  return Ok(Symbol::new(Token::LBRACKET, String::from("["), self.get_literal_position(literal_begin,1))),
+                        ']' =>  return Ok(Symbol::new(Token::RBRACKET, String::from("]"), self.get_literal_position(literal_begin,1))),
+                        '{' =>  return Ok(Symbol::new(Token::LBRACE, String::from("{"), self.get_literal_position(literal_begin,1))),
+                        '}' =>  return Ok(Symbol::new(Token::RBRACE, String::from("}"), self.get_literal_position(literal_begin,1))),
+                        '.' =>  return Ok(Symbol::new(Token::DOT, String::from("."), self.get_literal_position(literal_begin,1))),
+                        ',' =>  return Ok(Symbol::new(Token::COMMA, String::from(","), self.get_literal_position(literal_begin,1))),
+                        ':' =>  return Ok(Symbol::new(Token::COLON, String::from(":"), self.get_literal_position(literal_begin,1))),
+                        ';' =>  return Ok(Symbol::new(Token::SEMIC, String::from(";"), self.get_literal_position(literal_begin,1))),
                         c => 
                         {
                             if c.is_alphabetic() || c == '_' 
@@ -213,11 +213,11 @@ impl LexicalAnalyzer {
                  {
                      match chr 
                     {
-                        Some('=') => return Ok(Symbol::new(Token::EQU,self.get_literal_position(literal_begin,2))),
+                        Some('=') => return Ok(Symbol::new(Token::EQU, String::from("=="), self.get_literal_position(literal_begin,2))),
                         _ =>
                         { 
                             self.seek_back();  
-                            return Ok(Symbol::new(Token::ASSIGN, self.get_literal_position(literal_begin,1)));
+                            return Ok(Symbol::new(Token::ASSIGN, String::from("="), self.get_literal_position(literal_begin,1)));
                         },
                     }
                  },
@@ -225,12 +225,12 @@ impl LexicalAnalyzer {
                  {
                      match chr 
                      {
-                         Some('>') => return Ok(Symbol::new(Token::NEQ,self.get_literal_position(literal_begin,2))),
-                         Some('=') => return Ok(Symbol::new(Token::LEQ, self.get_literal_position(literal_begin,2))),
+                         Some('>') => return Ok(Symbol::new(Token::NEQ, String::from("<>"), self.get_literal_position(literal_begin,2))),
+                         Some('=') => return Ok(Symbol::new(Token::LEQ, String::from("<="), self.get_literal_position(literal_begin,2))),
                         _ => 
                         {
                             self.seek_back();
-                            return Ok(Symbol::new(Token::LTH,self.get_literal_position(literal_begin,1)));
+                            return Ok(Symbol::new(Token::LTH, String::from("<"), self.get_literal_position(literal_begin,1)));
                         },
                      }
                  },
@@ -238,11 +238,11 @@ impl LexicalAnalyzer {
                  {
                      match chr 
                      {
-                         Some('=') => return Ok(Symbol::new(Token::GEQ,self.get_literal_position(literal_begin,2))),
+                         Some('=') => return Ok(Symbol::new(Token::GEQ, String::from(">="), self.get_literal_position(literal_begin,2))), 
                          _ => 
                          {
                              self.seek_back();
-                             return Ok(Symbol::new(Token::GTH, self.get_literal_position(literal_begin,1)));
+                             return Ok(Symbol::new(Token::GTH, String::from(">"), self.get_literal_position(literal_begin,1)));
                          },
                      }
                  },
@@ -255,7 +255,7 @@ impl LexicalAnalyzer {
                          Some(c) if (c as u8) < 32 || (c as u8) > 126 => report::error_at_position(&format!("Invalid character '{}' (ascii: {}) in comment\n",c, c as u8),
                                                                                                                                             &self.get_literal_position(literal_begin,1),
                                                                                                                                             ExitCode::LexicalAnalyzerIlegallChar),
-                        None => return Ok(Symbol::new(Token::EOF,self.get_literal_position(literal_begin,0))),
+                        None => return Ok(None),
                          _ => {},
                      }
                  }
@@ -278,7 +278,6 @@ impl LexicalAnalyzer {
                          Some(c) if c.is_digit(10) => literal.push(c),
                          Some('.') => 
                          {
-                             // REAL CONST STATE
                              state = ParserState::RealConstState;
                              literal.push('.');
                              match try!(self.get_next_char())
@@ -288,27 +287,6 @@ impl LexicalAnalyzer {
                                                                      &self.get_literal_position(literal_begin, literal.len() as u64),
                                                                      ExitCode::LexicalAnalyzerIlegallChar),
                              }
-                             /*
-                             match try!(self.get_next_char()) 
-                             {
-                                 Some(c) if c == '+' || c == '-' =>
-                                 {
-                                      literal.push(c);
-                                      match try!(self.get_next_char()) 
-                                      {
-                                          Some(c) if c.is_digit(10) => literal.push(c),
-                                          _ =>  report::error_at_position("Error while parsing REALCONST. Illegal character!",
-                                                                     &self.get_literal_position(literal_begin, literal.len() as u64),
-                                                                     ExitCode::LexicalAnalyzerIlegallChar),
-                                      }
-                                 },
-                                 Some(c) if c.is_digit(10) => literal.push(c),
-                                 _ => report::error_at_position("Error while parsing REALCONST. Illegal character!",
-                                                                     &self.get_literal_position(literal_begin, literal.len() as u64),
-                                                                     ExitCode::LexicalAnalyzerIlegallChar),
-                             }
-                             */
-                             // END REAL CONST STATE
                          },
                          Some(c) if c.is_alphabetic() => 
                          {
@@ -319,13 +297,13 @@ impl LexicalAnalyzer {
                          None => 
                          {
                              let len = literal.len() as u64;
-                             return Ok(Symbol::new(Token::INTCONST{lexeme : literal}, self.get_literal_position(literal_begin, len)));
+                             return Ok(Symbol::new(Token::INTCONST, literal, self.get_literal_position(literal_begin, len)));
                          },
                          _ =>  
                          {
                              let len = literal.len() as u64;
                              self.seek_back();
-                             return Ok(Symbol::new(Token::INTCONST{lexeme : literal}, self.get_literal_position(literal_begin, len)));
+                             return Ok(Symbol::new(Token::INTCONST, literal, self.get_literal_position(literal_begin, len)));
                          },
                      }
                  },
@@ -366,13 +344,13 @@ impl LexicalAnalyzer {
                         None => 
                         {
                             let len = literal.len() as u64;
-                             return Ok(Symbol::new(Token::REALCONST{lexeme : literal}, self.get_literal_position(literal_begin, len)));
+                             return Ok(Symbol::new(Token::REALCONST, literal, self.get_literal_position(literal_begin, len)));
                         },
                         _ => 
                         {
                              let len = literal.len() as u64;
                              self.seek_back();
-                             return Ok(Symbol::new(Token::REALCONST{lexeme : literal}, self.get_literal_position(literal_begin, len)));
+                             return Ok(Symbol::new(Token::REALCONST, literal, self.get_literal_position(literal_begin, len)));
                         },
                     }
                  },
@@ -389,13 +367,13 @@ impl LexicalAnalyzer {
                         None => 
                         {
                              let len = literal.len() as u64;
-                             return Ok(Symbol::new(Token::REALCONST{lexeme : literal}, self.get_literal_position(literal_begin, len)));
+                             return Ok(Symbol::new(Token::REALCONST, literal, self.get_literal_position(literal_begin, len)));
                         },
                         _ => 
                         {
                              let len = literal.len() as u64;
                              self.seek_back();
-                             return Ok(Symbol::new(Token::REALCONST{lexeme : literal}, self.get_literal_position(literal_begin, len)));
+                             return Ok(Symbol::new(Token::REALCONST, literal, self.get_literal_position(literal_begin, len)));
                         },
                     }
                  },
@@ -408,7 +386,7 @@ impl LexicalAnalyzer {
                          Some('\"') => 
                          {
                              let len = literal.len() as u64;
-                             return Ok(Symbol::new(Token::STRINGCONST{lexeme : literal}, self.get_literal_position(literal_begin, len)));
+                             return Ok(Symbol::new(Token::STRINGCONST, literal, self.get_literal_position(literal_begin, len)));
                          },
                          None =>  report::error_at_position(&format!("Error: End of file occured, but string not closed!"),
                                                                      &self.get_literal_position(literal_begin,literal.len() as u64),

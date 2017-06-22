@@ -1,0 +1,1564 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="C:\Users\Jure\Documents\rust-projects\ProteusCompiler\xsl\synanal.xsl"?>
+<synanal>
+<production>
+<leftside nonterminal="parse_source"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_expressions"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_or_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_and_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_relational_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_additive_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_multiplicative_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_prefix_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_postfix_expression"/>
+<rightside>
+<symbol token="LPARENT">
+<position filename="p2.proteus" begLine="1" begColumn="1" endLine="1" endColumn="1"/> 
+</symbol>
+<production>
+<leftside nonterminal="parse_expressions"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_or_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_and_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_relational_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_additive_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_multiplicative_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_prefix_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_postfix_expression"/>
+<rightside>
+<symbol token="IDENTIFIER"  lexeme="getInt">
+<position filename="p2.proteus" begLine="1" begColumn="2" endLine="1" endColumn="7"/> 
+</symbol>
+<symbol token="LPARENT">
+<position filename="p2.proteus" begLine="1" begColumn="9" endLine="1" endColumn="9"/> 
+</symbol>
+<production>
+<leftside nonterminal="parse_expressions"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_or_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_and_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_relational_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_additive_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_multiplicative_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_prefix_expression"/>
+<rightside>
+<symbol token="AND">
+<position filename="p2.proteus" begLine="1" begColumn="10" endLine="1" endColumn="10"/> 
+</symbol>
+<production>
+<leftside nonterminal="parse_prefix_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_postfix_expression"/>
+<rightside>
+<symbol token="IDENTIFIER"  lexeme="input">
+<position filename="p2.proteus" begLine="1" begColumn="11" endLine="1" endColumn="15"/> 
+</symbol>
+<production>
+<leftside nonterminal="parse_postfix_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_multiplicative_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_additive_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_and_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_or_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_expressions_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+<symbol token="RPARENT">
+<position filename="p2.proteus" begLine="1" begColumn="17" endLine="1" endColumn="17"/> 
+</symbol>
+<production>
+<leftside nonterminal="parse_postfix_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_multiplicative_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_additive_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_and_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_or_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_expressions_rest"/>
+<rightside>
+<symbol token="COMMA">
+<position filename="p2.proteus" begLine="1" begColumn="18" endLine="1" endColumn="18"/> 
+</symbol>
+<production>
+<leftside nonterminal="parse_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_or_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_and_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_relational_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_additive_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_multiplicative_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_prefix_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_postfix_expression"/>
+<rightside>
+<symbol token="LBRACE">
+<position filename="p2.proteus" begLine="1" begColumn="19" endLine="1" endColumn="19"/> 
+</symbol>
+<production>
+<leftside nonterminal="parse_postfix_brace_expression"/>
+<rightside>
+<symbol token="IDENTIFIER"  lexeme="x">
+<position filename="p2.proteus" begLine="1" begColumn="20" endLine="1" endColumn="20"/> 
+</symbol>
+<symbol token="ASSIGN">
+<position filename="p2.proteus" begLine="1" begColumn="22" endLine="1" endColumn="22"/> 
+</symbol>
+<production>
+<leftside nonterminal="parse_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_or_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_and_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_relational_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_additive_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_multiplicative_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_prefix_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_postfix_expression"/>
+<rightside>
+<symbol token="IDENTIFIER"  lexeme="factoriel">
+<position filename="p2.proteus" begLine="1" begColumn="24" endLine="1" endColumn="32"/> 
+</symbol>
+<symbol token="LPARENT">
+<position filename="p2.proteus" begLine="1" begColumn="34" endLine="1" endColumn="34"/> 
+</symbol>
+<production>
+<leftside nonterminal="parse_expressions"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_or_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_and_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_relational_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_additive_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_multiplicative_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_prefix_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_postfix_expression"/>
+<rightside>
+<symbol token="IDENTIFIER"  lexeme="input">
+<position filename="p2.proteus" begLine="1" begColumn="35" endLine="1" endColumn="39"/> 
+</symbol>
+<production>
+<leftside nonterminal="parse_postfix_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_multiplicative_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_additive_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_and_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_or_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_expressions_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+<symbol token="RPARENT">
+<position filename="p2.proteus" begLine="1" begColumn="41" endLine="1" endColumn="41"/> 
+</symbol>
+<production>
+<leftside nonterminal="parse_postfix_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_multiplicative_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_additive_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_and_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_or_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<symbol token="RBRACE">
+<position filename="p2.proteus" begLine="1" begColumn="42" endLine="1" endColumn="42"/> 
+</symbol>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_postfix_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_multiplicative_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_additive_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_and_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_or_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_expressions_rest"/>
+<rightside>
+<symbol token="COMMA">
+<position filename="p2.proteus" begLine="1" begColumn="43" endLine="1" endColumn="43"/> 
+</symbol>
+<production>
+<leftside nonterminal="parse_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_or_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_and_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_relational_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_additive_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_multiplicative_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_prefix_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_postfix_expression"/>
+<rightside>
+<symbol token="IDENTIFIER"  lexeme="putInt">
+<position filename="p2.proteus" begLine="1" begColumn="44" endLine="1" endColumn="49"/> 
+</symbol>
+<symbol token="LPARENT">
+<position filename="p2.proteus" begLine="1" begColumn="51" endLine="1" endColumn="51"/> 
+</symbol>
+<production>
+<leftside nonterminal="parse_expressions"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_or_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_and_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_relational_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_additive_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_multiplicative_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_prefix_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_postfix_expression"/>
+<rightside>
+<symbol token="IDENTIFIER"  lexeme="x">
+<position filename="p2.proteus" begLine="1" begColumn="52" endLine="1" endColumn="52"/> 
+</symbol>
+<production>
+<leftside nonterminal="parse_postfix_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_multiplicative_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_additive_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_and_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_or_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_expressions_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+<symbol token="RPARENT">
+<position filename="p2.proteus" begLine="1" begColumn="54" endLine="1" endColumn="54"/> 
+</symbol>
+<production>
+<leftside nonterminal="parse_postfix_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_multiplicative_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_additive_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_and_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_or_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_expressions_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<symbol token="RPARENT">
+<position filename="p2.proteus" begLine="1" begColumn="55" endLine="1" endColumn="55"/> 
+</symbol>
+<production>
+<leftside nonterminal="parse_postfix_expression_rest"/>
+<rightside>
+<symbol token="WHERE">
+<position filename="p2.proteus" begLine="1" begColumn="57" endLine="1" endColumn="61"/> 
+</symbol>
+<production>
+<leftside nonterminal="parse_declarations"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_declaration"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_variable_declaration"/>
+<rightside>
+<symbol token="VAR">
+<position filename="p2.proteus" begLine="1" begColumn="64" endLine="1" endColumn="66"/> 
+</symbol>
+<symbol token="IDENTIFIER"  lexeme="input">
+<position filename="p2.proteus" begLine="1" begColumn="69" endLine="1" endColumn="73"/> 
+</symbol>
+<symbol token="COLON">
+<position filename="p2.proteus" begLine="1" begColumn="75" endLine="1" endColumn="75"/> 
+</symbol>
+<production>
+<leftside nonterminal="parse_type"/>
+<rightside>
+<symbol token="INT">
+<position filename="p2.proteus" begLine="1" begColumn="76" endLine="1" endColumn="78"/> 
+</symbol>
+</rightside>
+</production>
+<symbol token="SEMIC">
+<position filename="p2.proteus" begLine="1" begColumn="80" endLine="1" endColumn="80"/> 
+</symbol>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_declarations_rest"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_declaration"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_variable_declaration"/>
+<rightside>
+<symbol token="VAR">
+<position filename="p2.proteus" begLine="1" begColumn="82" endLine="1" endColumn="84"/> 
+</symbol>
+<symbol token="IDENTIFIER"  lexeme="x">
+<position filename="p2.proteus" begLine="1" begColumn="87" endLine="1" endColumn="87"/> 
+</symbol>
+<symbol token="COLON">
+<position filename="p2.proteus" begLine="1" begColumn="89" endLine="1" endColumn="89"/> 
+</symbol>
+<production>
+<leftside nonterminal="parse_type"/>
+<rightside>
+<symbol token="INT">
+<position filename="p2.proteus" begLine="1" begColumn="90" endLine="1" endColumn="92"/> 
+</symbol>
+</rightside>
+</production>
+<symbol token="SEMIC">
+<position filename="p2.proteus" begLine="1" begColumn="94" endLine="1" endColumn="94"/> 
+</symbol>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_declarations_rest"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_declaration"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_function_declaration"/>
+<rightside>
+<symbol token="FUN">
+<position filename="p2.proteus" begLine="2" begColumn="1" endLine="2" endColumn="3"/> 
+</symbol>
+<symbol token="IDENTIFIER"  lexeme="factoriel">
+<position filename="p2.proteus" begLine="2" begColumn="6" endLine="2" endColumn="14"/> 
+</symbol>
+<symbol token="LPARENT">
+<position filename="p2.proteus" begLine="2" begColumn="16" endLine="2" endColumn="16"/> 
+</symbol>
+<production>
+<leftside nonterminal="parse_function_parameters"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_function_parameter"/>
+<rightside>
+<symbol token="IDENTIFIER"  lexeme="n">
+<position filename="p2.proteus" begLine="2" begColumn="17" endLine="2" endColumn="17"/> 
+</symbol>
+<symbol token="COLON">
+<position filename="p2.proteus" begLine="2" begColumn="19" endLine="2" endColumn="19"/> 
+</symbol>
+<production>
+<leftside nonterminal="parse_type"/>
+<rightside>
+<symbol token="INT">
+<position filename="p2.proteus" begLine="2" begColumn="20" endLine="2" endColumn="22"/> 
+</symbol>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_function_parameters_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+<symbol token="RPARENT">
+<position filename="p2.proteus" begLine="2" begColumn="24" endLine="2" endColumn="24"/> 
+</symbol>
+<symbol token="COLON">
+<position filename="p2.proteus" begLine="2" begColumn="25" endLine="2" endColumn="25"/> 
+</symbol>
+<production>
+<leftside nonterminal="parse_type"/>
+<rightside>
+<symbol token="INT">
+<position filename="p2.proteus" begLine="2" begColumn="26" endLine="2" endColumn="28"/> 
+</symbol>
+</rightside>
+</production>
+<symbol token="ASSIGN">
+<position filename="p2.proteus" begLine="2" begColumn="30" endLine="2" endColumn="30"/> 
+</symbol>
+<production>
+<leftside nonterminal="parse_expressions"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_or_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_and_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_relational_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_additive_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_multiplicative_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_prefix_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_postfix_expression"/>
+<rightside>
+<symbol token="LBRACE">
+<position filename="p2.proteus" begLine="2" begColumn="32" endLine="2" endColumn="32"/> 
+</symbol>
+<production>
+<leftside nonterminal="parse_postfix_brace_expression"/>
+<rightside>
+<symbol token="IF">
+<position filename="p2.proteus" begLine="2" begColumn="33" endLine="2" endColumn="34"/> 
+</symbol>
+<production>
+<leftside nonterminal="parse_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_or_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_and_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_relational_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_additive_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_multiplicative_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_prefix_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_postfix_expression"/>
+<rightside>
+<symbol token="IDENTIFIER"  lexeme="n">
+<position filename="p2.proteus" begLine="2" begColumn="37" endLine="2" endColumn="37"/> 
+</symbol>
+<production>
+<leftside nonterminal="parse_postfix_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_multiplicative_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_additive_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+<symbol token="LEQ">
+<position filename="p2.proteus" begLine="2" begColumn="39" endLine="2" endColumn="40"/> 
+</symbol>
+<production>
+<leftside nonterminal="parse_additive_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_multiplicative_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_prefix_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_postfix_expression"/>
+<rightside>
+<symbol token="INTCONST"  lexeme="0">
+<position filename="p2.proteus" begLine="2" begColumn="41" endLine="2" endColumn="41"/> 
+</symbol>
+<production>
+<leftside nonterminal="parse_postfix_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_multiplicative_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_additive_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_and_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_or_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<symbol token="THEN">
+<position filename="p2.proteus" begLine="2" begColumn="44" endLine="2" endColumn="47"/> 
+</symbol>
+<production>
+<leftside nonterminal="parse_expressions"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_or_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_and_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_relational_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_additive_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_multiplicative_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_prefix_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_postfix_expression"/>
+<rightside>
+<symbol token="LBRACE">
+<position filename="p2.proteus" begLine="2" begColumn="50" endLine="2" endColumn="50"/> 
+</symbol>
+<production>
+<leftside nonterminal="parse_postfix_brace_expression"/>
+<rightside>
+<symbol token="IDENTIFIER"  lexeme="x">
+<position filename="p2.proteus" begLine="2" begColumn="51" endLine="2" endColumn="51"/> 
+</symbol>
+<symbol token="ASSIGN">
+<position filename="p2.proteus" begLine="2" begColumn="53" endLine="2" endColumn="53"/> 
+</symbol>
+<production>
+<leftside nonterminal="parse_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_or_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_and_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_relational_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_additive_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_multiplicative_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_prefix_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_postfix_expression"/>
+<rightside>
+<symbol token="INTCONST"  lexeme="1">
+<position filename="p2.proteus" begLine="2" begColumn="55" endLine="2" endColumn="55"/> 
+</symbol>
+<production>
+<leftside nonterminal="parse_postfix_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_multiplicative_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_additive_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_and_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_or_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<symbol token="RBRACE">
+<position filename="p2.proteus" begLine="2" begColumn="57" endLine="2" endColumn="57"/> 
+</symbol>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_postfix_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_multiplicative_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_additive_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_and_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_or_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_expressions_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+<symbol token="ELSE">
+<position filename="p2.proteus" begLine="2" begColumn="59" endLine="2" endColumn="62"/> 
+</symbol>
+<production>
+<leftside nonterminal="parse_expressions"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_or_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_and_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_relational_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_additive_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_multiplicative_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_prefix_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_postfix_expression"/>
+<rightside>
+<symbol token="LBRACE">
+<position filename="p2.proteus" begLine="2" begColumn="65" endLine="2" endColumn="65"/> 
+</symbol>
+<production>
+<leftside nonterminal="parse_postfix_brace_expression"/>
+<rightside>
+<symbol token="IDENTIFIER"  lexeme="x">
+<position filename="p2.proteus" begLine="2" begColumn="66" endLine="2" endColumn="66"/> 
+</symbol>
+<symbol token="ASSIGN">
+<position filename="p2.proteus" begLine="2" begColumn="68" endLine="2" endColumn="68"/> 
+</symbol>
+<production>
+<leftside nonterminal="parse_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_or_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_and_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_relational_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_additive_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_multiplicative_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_prefix_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_postfix_expression"/>
+<rightside>
+<symbol token="IDENTIFIER"  lexeme="n">
+<position filename="p2.proteus" begLine="2" begColumn="70" endLine="2" endColumn="70"/> 
+</symbol>
+<production>
+<leftside nonterminal="parse_postfix_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_multiplicative_expression_rest"/>
+<rightside>
+<symbol token="MUL">
+<position filename="p2.proteus" begLine="2" begColumn="72" endLine="2" endColumn="72"/> 
+</symbol>
+<production>
+<leftside nonterminal="parse_prefix_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_postfix_expression"/>
+<rightside>
+<symbol token="IDENTIFIER"  lexeme="factoriel">
+<position filename="p2.proteus" begLine="2" begColumn="73" endLine="2" endColumn="81"/> 
+</symbol>
+<symbol token="LPARENT">
+<position filename="p2.proteus" begLine="2" begColumn="83" endLine="2" endColumn="83"/> 
+</symbol>
+<production>
+<leftside nonterminal="parse_expressions"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_or_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_and_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_relational_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_additive_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_multiplicative_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_prefix_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_postfix_expression"/>
+<rightside>
+<symbol token="IDENTIFIER"  lexeme="n">
+<position filename="p2.proteus" begLine="2" begColumn="84" endLine="2" endColumn="84"/> 
+</symbol>
+<production>
+<leftside nonterminal="parse_postfix_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_multiplicative_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_additive_expression_rest"/>
+<rightside>
+<symbol token="SUB">
+<position filename="p2.proteus" begLine="2" begColumn="86" endLine="2" endColumn="86"/> 
+</symbol>
+<production>
+<leftside nonterminal="parse_multiplicative_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_prefix_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_postfix_expression"/>
+<rightside>
+<symbol token="INTCONST"  lexeme="1">
+<position filename="p2.proteus" begLine="2" begColumn="87" endLine="2" endColumn="87"/> 
+</symbol>
+<production>
+<leftside nonterminal="parse_postfix_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_multiplicative_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_additive_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_and_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_or_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_expressions_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+<symbol token="RPARENT">
+<position filename="p2.proteus" begLine="2" begColumn="89" endLine="2" endColumn="89"/> 
+</symbol>
+<production>
+<leftside nonterminal="parse_postfix_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_multiplicative_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_additive_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_and_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_or_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<symbol token="RBRACE">
+<position filename="p2.proteus" begLine="2" begColumn="90" endLine="2" endColumn="90"/> 
+</symbol>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_postfix_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_multiplicative_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_additive_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_and_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_or_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_expressions_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+<symbol token="RBRACE">
+<position filename="p2.proteus" begLine="2" begColumn="91" endLine="2" endColumn="91"/> 
+</symbol>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_postfix_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_multiplicative_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_additive_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_and_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_or_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_expressions_rest"/>
+<rightside>
+<symbol token="COMMA">
+<position filename="p2.proteus" begLine="2" begColumn="92" endLine="2" endColumn="92"/> 
+</symbol>
+<production>
+<leftside nonterminal="parse_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_or_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_and_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_relational_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_additive_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_multiplicative_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_prefix_expression"/>
+<rightside>
+<production>
+<leftside nonterminal="parse_postfix_expression"/>
+<rightside>
+<symbol token="IDENTIFIER"  lexeme="x">
+<position filename="p2.proteus" begLine="2" begColumn="93" endLine="2" endColumn="93"/> 
+</symbol>
+<production>
+<leftside nonterminal="parse_postfix_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_multiplicative_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_additive_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_and_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_or_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_expressions_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<symbol token="SEMIC">
+<position filename="p2.proteus" begLine="2" begColumn="95" endLine="2" endColumn="95"/> 
+</symbol>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_declarations_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_postfix_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_multiplicative_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_additive_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_and_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_or_expression_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+<production>
+<leftside nonterminal="parse_expressions_rest"/>
+<rightside>
+</rightside>
+</production>
+</rightside>
+</production>
+</rightside>
+</production>
+</synanal>

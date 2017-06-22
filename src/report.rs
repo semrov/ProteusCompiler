@@ -9,6 +9,9 @@ use std::fmt::{Error,Formatter};
 pub enum ExitCode 
 {
     LexicalAnalyzerIlegallChar,
+    SyntaxAnalyzerSyntaxError,
+    SyntaxAnalyzerUnexpectedEndOfStream,
+    AbstractSyntaxTreeInvalidExpression,
 }
 
 impl Display for ExitCode {
@@ -16,6 +19,9 @@ impl Display for ExitCode {
     {
         match self {
             &ExitCode::LexicalAnalyzerIlegallChar => writeln!(f, "LexicalAnalyzerIlegallChar"),
+            &ExitCode::SyntaxAnalyzerSyntaxError => writeln!(f, "SyntaxAnalyzerSyntaxError"),
+            &ExitCode::SyntaxAnalyzerUnexpectedEndOfStream => writeln!(f, "SyntaxAnalyzerUnexpectedEndOfStream"),
+            &ExitCode::AbstractSyntaxTreeInvalidExpression => writeln!(f, "AbstractSyntaxTreeInvalidExpression"),
         }
     }
 }
