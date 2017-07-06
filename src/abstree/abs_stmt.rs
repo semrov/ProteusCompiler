@@ -21,37 +21,12 @@ impl AbsAssignStmt
 {
     pub fn new(left_sub_expr : Box<AbsExpr>, right_sub_expr : Box<AbsExpr>) -> AbsAssignStmt
     {
-        AbsAssignStmt{left_sub_expr,right_sub_expr,abs_position : AbsPosition::new()}
+        AbsAssignStmt{left_sub_expr,right_sub_expr,abs_position : AbsPosition::new()}  
     }
-}
-
-impl Positioner for AbsAssignStmt 
-{
-    fn get_position_ref(&self) -> Option<&Position> { self.abs_position.get_position_ref() }
-    fn get_position_ref_mut(&mut self) -> Option<&mut Position> { self.abs_position.get_position_ref_mut() }
-    fn set_min_by_position(&mut self, position : &Position) 
+    pub fn calculate_abs_position(&mut self)
     {
-        self.abs_position.set_min_by_position(position);
-    }
-    fn set_min_by_symbol(&mut self, symbol : &Symbol) 
-    {
-        self.abs_position.set_min_by_symbol(symbol);
-    }
-    fn set_min_by_abstree(&mut self, abstree : &AbsTree) 
-    {
-        self.abs_position.set_min_by_abstree(abstree);
-    }
-    fn set_max_by_position(&mut self, position : &Position) 
-    {
-        self.abs_position.set_max_by_position(position);
-    }
-    fn set_max_by_symbol(&mut self, symbol : &Symbol)  
-    {
-        self.abs_position.set_max_by_symbol(symbol);
-    }
-    fn set_max_by_abstree(&mut self, abstree : &AbsTree)
-    {
-        self.abs_position.set_max_by_abstree(abstree);
+        self.abs_position.set_min(self.left_sub_expr.get_position_ref());
+        self.abs_position.set_max(self.right_sub_expr.get_position_ref());
     }
 }
 
@@ -64,6 +39,19 @@ impl AbsTree for AbsAssignStmt
 }
 impl AbsExpr for AbsAssignStmt {}
 impl AbsStmt for AbsAssignStmt {}
+impl Positioner for AbsAssignStmt 
+{
+    fn get_position_ref(&self) -> Option<&Position> { self.abs_position.get_position_ref() }
+    fn get_position_ref_mut(&mut self) -> Option<&mut Position> { self.abs_position.get_position_ref_mut() }
+    fn set_min(&mut self, position : &Position) 
+    {
+        self.abs_position.set_min(position);
+    }
+    fn set_max(&mut self, position : &Position) 
+    {
+        self.abs_position.set_max(position);
+    }
+}
 
 //if statement tree
 pub struct AbsIfStmt 
@@ -82,34 +70,18 @@ impl AbsIfStmt {
     {
         AbsIfStmt{cond_expr,then_expr,else_expr, abs_position : AbsPosition::new()}
     }
-}
-impl Positioner for AbsIfStmt 
-{
-    fn get_position_ref(&self) -> Option<&Position> { self.abs_position.get_position_ref() }
-    fn get_position_ref_mut(&mut self) -> Option<&mut Position> { self.abs_position.get_position_ref_mut() }
-    fn set_min_by_position(&mut self, position : &Position) 
+    pub fn calculate_abs_position(&mut self)
     {
-        self.abs_position.set_min_by_position(position);
-    }
-    fn set_min_by_symbol(&mut self, symbol : &Symbol) 
-    {
-        self.abs_position.set_min_by_symbol(symbol);
-    }
-    fn set_min_by_abstree(&mut self, abstree : &AbsTree) 
-    {
-        self.abs_position.set_min_by_abstree(abstree);
-    }
-    fn set_max_by_position(&mut self, position : &Position) 
-    {
-        self.abs_position.set_max_by_position(position);
-    }
-    fn set_max_by_symbol(&mut self, symbol : &Symbol)  
-    {
-        self.abs_position.set_max_by_symbol(symbol);
-    }
-    fn set_max_by_abstree(&mut self, abstree : &AbsTree)
-    {
-        self.abs_position.set_max_by_abstree(abstree);
+        self.abs_position.set_min(self.cond_expr.get_position_ref());
+        if let Some(ref expr) = self.else_expr 
+        {
+           self.abs_position.set_max(self.expr.get_position_ref());
+        }
+        else 
+        {
+            self.abs_position.set_max(self.then_expr.get_position_ref());
+        }
+        
     }
 }
 
@@ -122,6 +94,19 @@ impl AbsTree for AbsIfStmt
 }
 impl AbsExpr for AbsIfStmt {}
 impl AbsStmt for AbsIfStmt {}
+impl Positioner for AbsIfStmt 
+{
+    fn get_position_ref(&self) -> Option<&Position> { self.abs_position.get_position_ref() }
+    fn get_position_ref_mut(&mut self) -> Option<&mut Position> { self.abs_position.get_position_ref_mut() }
+    fn set_min(&mut self, position : &Position) 
+    {
+        self.abs_position.set_min(position);
+    }
+    fn set_max(&mut self, position : &Position) 
+    {
+        self.abs_position.set_max(position);
+    }
+}
 
 // for statement tree
 pub struct AbsForStmt
@@ -134,46 +119,22 @@ pub struct AbsForStmt
     //higher bound
      pub higher_bound : Box<AbsExpr>,
      //loop expression
-     pub loop_expr : Box<AbsExpr>,
+     pub loop_exprs : Box<AbsExpr>,
 }
 
 impl AbsForStmt
 {
-    pub fn new(var_name : AbsExprName, lower_bound : Box<AbsExpr>, higher_bound : Box<AbsExpr>, loop_expr : Box<AbsExpr>)-> AbsForStmt 
+    pub fn new(var_name : AbsExprName, lower_bound : Box<AbsExpr>, higher_bound : Box<AbsExpr>, loop_exprs : Box<AbsExpr>)-> AbsForStmt 
     {
-        AbsForStmt{var_name,lower_bound,higher_bound,loop_expr,abs_position : AbsPosition::new()}
+        AbsForStmt{var_name,lower_bound,higher_bound,loop_exprs,abs_position : AbsPosition::new()}
+    }
+    pub fn calculate_abs_position(&mut self)
+    {
+        self.abs_position.set_min(self.var_name.get_position_ref());
+        self.abs_position.set_max(self.loop_exprs.get_position_ref());
     }
 }
 
-impl Positioner for AbsForStmt 
-{
-    fn get_position_ref(&self) -> Option<&Position> { self.abs_position.get_position_ref() }
-    fn get_position_ref_mut(&mut self) -> Option<&mut Position> { self.abs_position.get_position_ref_mut() }
-    fn set_min_by_position(&mut self, position : &Position) 
-    {
-        self.abs_position.set_min_by_position(position);
-    }
-    fn set_min_by_symbol(&mut self, symbol : &Symbol) 
-    {
-        self.abs_position.set_min_by_symbol(symbol);
-    }
-    fn set_min_by_abstree(&mut self, abstree : &AbsTree) 
-    {
-        self.abs_position.set_min_by_abstree(abstree);
-    }
-    fn set_max_by_position(&mut self, position : &Position) 
-    {
-        self.abs_position.set_max_by_position(position);
-    }
-    fn set_max_by_symbol(&mut self, symbol : &Symbol)  
-    {
-        self.abs_position.set_max_by_symbol(symbol);
-    }
-    fn set_max_by_abstree(&mut self, abstree : &AbsTree)
-    {
-        self.abs_position.set_max_by_abstree(abstree);
-    }
-}
 
 impl AbsTree for AbsForStmt 
 {
@@ -184,6 +145,19 @@ impl AbsTree for AbsForStmt
 }
 impl AbsExpr for AbsForStmt {}
 impl AbsStmt for AbsForStmt {}
+impl Positioner for AbsForStmt 
+{
+    fn get_position_ref(&self) -> Option<&Position> { self.abs_position.get_position_ref() }
+    fn get_position_ref_mut(&mut self) -> Option<&mut Position> { self.abs_position.get_position_ref_mut() }
+    fn set_min(&mut self, position : &Position) 
+    {
+        self.abs_position.set_min(position);
+    }
+    fn set_max(&mut self, position : &Position) 
+    {
+        self.abs_position.set_max(position);
+    }
+}
 
 pub struct AbsWhileStmt 
 {
@@ -200,35 +174,10 @@ impl AbsWhileStmt
     {
         AbsWhileStmt{cond_expr,loop_expr, abs_position : AbsPosition::new()}
     }
-}
-
-impl Positioner for AbsWhileStmt 
-{
-    fn get_position_ref(&self) -> Option<&Position> { self.abs_position.get_position_ref() }
-    fn get_position_ref_mut(&mut self) -> Option<&mut Position> { self.abs_position.get_position_ref_mut() }
-    fn set_min_by_position(&mut self, position : &Position) 
+    pub fn calculate_abs_position(&mut self)
     {
-        self.abs_position.set_min_by_position(position);
-    }
-    fn set_min_by_symbol(&mut self, symbol : &Symbol) 
-    {
-        self.abs_position.set_min_by_symbol(symbol);
-    }
-    fn set_min_by_abstree(&mut self, abstree : &AbsTree) 
-    {
-        self.abs_position.set_min_by_abstree(abstree);
-    }
-    fn set_max_by_position(&mut self, position : &Position) 
-    {
-        self.abs_position.set_max_by_position(position);
-    }
-    fn set_max_by_symbol(&mut self, symbol : &Symbol)  
-    {
-        self.abs_position.set_max_by_symbol(symbol);
-    }
-    fn set_max_by_abstree(&mut self, abstree : &AbsTree)
-    {
-        self.abs_position.set_max_by_abstree(abstree);
+        self.abs_position.set_min(self.cond_expr.get_position_ref());
+        self.abs_position.set_max(self.loop_expr.get_position_ref());
     }
 }
 
@@ -241,3 +190,16 @@ impl AbsTree for AbsWhileStmt
 }
 impl AbsExpr for AbsWhileStmt {}
 impl AbsStmt for AbsWhileStmt {}
+impl Positioner for AbsWhileStmt 
+{
+    fn get_position_ref(&self) -> Option<&Position> { self.abs_position.get_position_ref() }
+    fn get_position_ref_mut(&mut self) -> Option<&mut Position> { self.abs_position.get_position_ref_mut() }
+    fn set_min(&mut self, position : &Position) 
+    {
+        self.abs_position.set_min(position);
+    }
+    fn set_max(&mut self, position : &Position) 
+    {
+        self.abs_position.set_max(position);
+    }
+}

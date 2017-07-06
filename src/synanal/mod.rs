@@ -50,20 +50,29 @@ impl SyntaxAnalyzer
         }
     }
 
-    
-    pub fn parse(&mut self) -> Result<Box<AbsTree>, io::Error> 
+
+    pub fn parse(&mut self) -> Result<Option<Box<AbsTree>>, io::Error> 
     {
         self.symbol = match self.lexical_analyser.get_next_symbol()
         {
             Ok(Some(symbol)) => Some(symbol),
-            Ok(None) => return Ok(()),
+            Ok(None) => return Ok(None),
             Err(ioe) => return Err(ioe),
         }; 
         
         let result = self.parse_source();
         match result 
         {
-            Ok(expr) => {}, // next phase, AST 
+            Ok(expr) => 
+            {
+                //at the end of parsing, self.symbol must be None
+                 if self.symbol.is_some()
+                {
+                    report::error("Internal error: Syntax check finished, but symbol still available",report::ExitCode::SyntaxAnalyzerSyntaxError);
+                }
+
+                return Ok(Some(expr));
+            },
             Err(ParseError::IoError(ioe)) => return Err(ioe),
             Err(ParseError::SyntaxError(syerr)) => 
             {
@@ -72,45 +81,42 @@ impl SyntaxAnalyzer
                     Some(symbol) => report::error_at_position(&format!("{}",syerr),symbol.get_ref_position(),report::ExitCode::SyntaxAnalyzerSyntaxError),
                     None => report::error(&format!("{}",syerr),report::ExitCode::SyntaxAnalyzerUnexpectedEndOfStream),
                 }
+                Ok(None)
             }
         }
-
-        //at the end of parsing, self.symbol must be None
-        if self.symbol.is_some()
-        {
-            report::error("Internal error: Syntax check finished, but symbol still available",report::ExitCode::SyntaxAnalyzerSyntaxError);
-        }
-     
-        Ok(())
     }
 
 
-    fn parse_source(&mut self) -> Result<(), ParseError> 
+    fn parse_source(&mut self) -> Result<Box<AbsTree>, ParseError> 
     {
         self.debug("parse_source");
-        try!(self.parse_expressions());
+        let abstree = try!(self.parse_expressions());
         self.debug_end();
-        Ok(())
+        Ok(abstree)
     }
 
-    fn parse_expressions(&mut self) -> Result<(),ParseError> 
+    fn parse_expressions(&mut self) -> Result<Box<AbsExprs>,ParseError> 
     {
         self.debug("parse_expressions");
-        self.parse_expression()?;
-        self.parse_expressions_rest()?;
+        let mut abs_exprs = Box::new(AbsExprs::new());
+        let abs_expr = self.parse_expression()?;
+        abs_exprs.exprs.push(abs_expr);
+        abs_exprs = self.parse_expressions_rest(abs_exprs)?;
+        abs_exprs.calculate_abs_position();
         self.debug_end();
-        Ok(())
+        Ok(abs_exprs)
     }
 
-    fn parse_expression(&mut self) -> Result<(),ParseError> 
+
+    fn parse_expression(&mut self) -> Result<Box<AbsExpr>,ParseError> 
     {
         self.debug("parse_expression");
-        self.parse_or_expression()?;
+        let abs_expr =self.parse_or_expression()?;
         self.debug_end();
-        Ok(())
+        Ok(abs_expr)
     }
 
-     fn parse_expressions_rest(&mut self) -> Result<(),ParseError> 
+     fn parse_expressions_rest(&mut self, abs_exprs_arg : Box<AbsExprs>) -> Result<AbsExprs,ParseError> 
     {
         self.debug("parse_expressions_rest");
         match self.symbol.as_ref().map(|symbol| symbol.get_token()) 
@@ -118,268 +124,326 @@ impl SyntaxAnalyzer
             Some(Token::COMMA)  => 
             {
                 self.skip(Token::COMMA)?;
-                self.parse_expression()?;
-                self.parse_expressions_rest()?;
+                let abs_expr = self.parse_expression()?;
+                abs_exprs_arg.exprs.push(abs_expr);
+                abs_exprs_arg = self.parse_expressions_rest(abs_exprs_arg)?;
             },
             _ => {},
         }
         self.debug_end();
-        Ok(())
+        Ok(abs_exprs_arg)
     }
 
-    fn parse_or_expression(&mut self) -> Result<(), ParseError>
+    fn parse_or_expression(&mut self) -> Result<Box<AbsExpr>, ParseError>
     {
         self.debug("parse_or_expression");
-        self.parse_and_expression()?;
-        self.parse_or_expression_rest()?;
+        let abs_expr = self.parse_and_expression()?;
+        let expr = self.parse_or_expression_rest(abs_expr)?;
         self.debug_end();
-        Ok(())
+        Ok(expr)
     }
 
-    fn parse_or_expression_rest(&mut self) -> Result<(),ParseError>
+    fn parse_or_expression_rest(&mut self, abs_expr_arg : Box<AbsExpr>) -> Result<Box<AbsExpr>,ParseError>
     {
+        let mut abs_expr = abs_expr_arg;
         self.debug("parse_or_expression_rest");
         match self.symbol.as_ref().map(|symbol| symbol.get_token()) 
         {
             Some(Token::OR) =>
             {
                 self.skip(Token::OR)?;
-                self.parse_and_expression()?;
-                self.parse_or_expression_rest()?;
+                let abs_right_expr = self.parse_and_expression()?;
+                let mut abs_bin_expr = Box::new(AbsBinExpr::new(AbsBinOper::OR,abs_expr,abs_right_expr));
+                abs_bin_expr.calculate_abs_position();
+                abs_expr = self.parse_or_expression_rest(abs_bin_expr)?;
             },
             _ => {},
         }
         self.debug_end();
-        Ok(())
+        Ok(abs_expr)
     }
 
-    fn parse_and_expression(&mut self) -> Result<(),ParseError>
+    fn parse_and_expression(&mut self) -> Result<Box<AbsExpr>,ParseError>
     {
          self.debug("parse_and_expression");
-         self.parse_relational_expression()?;
-         self.parse_and_expression_rest()?;
+         let rel_expr = self.parse_relational_expression()?;
+         let expr = self.parse_and_expression_rest(rel_expr)?;
          self.debug_end();
-         Ok(())
+         Ok(expr)
     }
 
-     fn parse_and_expression_rest(&mut self) -> Result<(),ParseError>
+     fn parse_and_expression_rest(&mut self, abs_expr_arg : Box<AbsExpr>) -> Result<Box<AbsExpr>,ParseError>
     {
          self.debug("parse_and_expression_rest");
+         let mut abs_expr = abs_expr_arg;
          match self.symbol.as_ref().map(|symbol|  symbol.get_token())
          {
              Some(Token::AND)  => 
              {
                  self.skip(Token::AND)?;
-                 self.parse_relational_expression()?;
-                 self.parse_and_expression_rest()?;
+                 let rel_expr = self.parse_relational_expression()?;
+                 let mut abs_bin_expr = Box::new(AbsBinExpr::new(AbsBinOper::AND,abs_expr,rel_expr));
+                 abs_bin_expr.calculate_abs_position();
+                 abs_expr = self.parse_and_expression_rest(abs_bin_expr)?;
              },
              _ => {},
          }
          self.debug_end();
-         Ok(())
+         Ok(abs_expr)
     }
 
-    fn parse_relational_expression(&mut self) -> Result<(),ParseError>
+    fn parse_relational_expression(&mut self) -> Result<Box<AbsExpr>,ParseError>
     {
          self.debug("parse_relational_expression");
-         self.parse_additive_expression()?;        
+         let mut expr = self.parse_additive_expression()?;        
          match self.symbol.as_ref().map(|symbol| symbol.get_token()) 
          {
              Some(Token::EQU)  => 
              {
                  self.skip(Token::EQU)?;
-                 self.parse_additive_expression()?;
+                 let right_expr = self.parse_additive_expression()?;
+                 expr = Box::new(AbsBinExpr::new(AbsBinOper::EQU, expr, right_expr));
+                 expr.calculate_abs_position();
              },
              Some(Token::NEQ)  => 
              {
                 self.skip(Token::NEQ)?;
-                self.parse_additive_expression()?;
+                let right_expr = self.parse_additive_expression()?;
+                expr = Box::new(AbsBinExpr::new(AbsBinOper::NEQ, expr, right_expr));
+                expr.calculate_abs_position();
              },
              Some(Token::LEQ) =>
              {
                 self.skip(Token::LEQ)?;
-                self.parse_additive_expression()?;
+                let right_expr = self.parse_additive_expression()?;
+                expr = Box::new(AbsBinExpr::new(AbsBinOper::LEQ, expr, right_expr));
+                expr.calculate_abs_position();
              },
              Some(Token::GEQ) =>
              {
                 self.skip(Token::GEQ)?;
-                self.parse_additive_expression()?;
+                let right_expr = self.parse_additive_expression()?;
+                expr = Box::new(AbsBinExpr::new(AbsBinOper::GEQ, expr, right_expr));
+                expr.calculate_abs_position();
              },
              Some(Token::LTH) =>
              {
                 self.skip(Token::LTH)?;
-                self.parse_additive_expression()?;
+                let right_expr = self.parse_additive_expression()?;
+                expr = Box::new(AbsBinExpr::new(AbsBinOper::LTH, expr, right_expr));
+                expr.calculate_abs_position();
              },
              Some(Token::GTH) =>
              {
                 self.skip(Token::GTH)?;
-                self.parse_additive_expression()?;
+                let right_expr = self.parse_additive_expression()?;
+                expr = Box::new(AbsBinExpr::new(AbsBinOper::GTH, expr, right_expr));
+                expr.calculate_abs_position();
              },
              _ => {},
          }
          self.debug_end();
-         Ok(())
+         Ok(expr)
     }
 
-    fn parse_additive_expression(&mut self) -> Result<(),ParseError>
+    fn parse_additive_expression(&mut self) -> Result<Box<AbsExpr>,ParseError>
     {
         self.debug("parse_additive_expression");
-        self.parse_multiplicative_expression()?;
-        self.parse_additive_expression_rest()?;
+        let mult_expr = self.parse_multiplicative_expression()?;
+        let expr = self.parse_additive_expression_rest(mult_expr)?;
         self.debug_end();
-        Ok(())
+        Ok(expr)
     }
 
-    fn parse_additive_expression_rest(&mut self) -> Result<(),ParseError>
+    fn parse_additive_expression_rest(&mut self, abs_expr_arg : Box<AbsExpr>) -> Result<(),ParseError>
     {
         self.debug("parse_additive_expression_rest");
+        let mut expr = abs_expr_arg;
         match self.symbol.as_ref().map(|symbol| symbol.get_token())
         {
             Some(Token::ADD) => 
             {
                 self.skip(Token::ADD)?;
-                self.parse_multiplicative_expression()?;
-                self.parse_additive_expression_rest()?
+                let mult_expr = self.parse_multiplicative_expression()?;
+                let mut abs_bin_expr = Box::new(AbsBinExpr::new(AbsBinOper::ADD,expr,mult_expr));
+                abs_bin_expr.calculate_abs_position();
+                expr = self.parse_additive_expression_rest(abs_bin_expr)?
             },
             Some(Token::SUB) =>
             {
                 self.skip(Token::SUB)?;
-                self.parse_multiplicative_expression()?;
-                self.parse_additive_expression_rest()?;
+                let mult_expr = self.parse_multiplicative_expression()?;
+                let mut abs_bin_expr = Box::new(AbsBinExpr::new(AbsBinOper::SUB,expr,mult_expr));
+                abs_bin_expr.calculate_abs_position();
+                expr = self.parse_additive_expression_rest(abs_bin_expr)?;
             }
             _ => {},
         }
         self.debug_end();
-        Ok(())
+        Ok(expr)
     }
 
 
-    fn parse_multiplicative_expression(&mut self) -> Result<(),ParseError>
+    fn parse_multiplicative_expression(&mut self) -> Result<Box<AbsExpr>,ParseError>
     {
         self.debug("parse_multiplicative_expression");
-        self.parse_prefix_expression()?;
-        self.parse_multiplicative_expression_rest()?;
+        let pref_expr = self.parse_prefix_expression()?;
+        let expr = self.parse_multiplicative_expression_rest(pref_expr)?;
         self.debug_end();
-        Ok(())
+        Ok(expr)
     }
 
-    fn parse_multiplicative_expression_rest(&mut self) -> Result<(),ParseError>
+    fn parse_multiplicative_expression_rest(&mut self, abs_expr_arg : Box<AbsExpr>) -> Result<(),ParseError>
     {
         self.debug("parse_multiplicative_expression_rest");
+        let mut expr = abs_expr_arg;
         match self.symbol.as_ref().map(|symbol| symbol.get_token()) 
         {
             Some(Token::MUL) =>
             {
                 self.skip(Token::MUL)?;
-                self.parse_prefix_expression()?;
-                self.parse_multiplicative_expression_rest()?;
+                let pref_expr = self.parse_prefix_expression()?;
+                let mut abs_bin_expr = Box::new(AbsBinExpr::new(AbsBinOper::MUL,expr,pref_expr));
+                abs_bin_expr.calculate_abs_position();
+                expr = self.parse_multiplicative_expression_rest(abs_bin_expr)?;
             },
             Some(Token::DIV) =>
             {
                 self.skip(Token::DIV)?;
-                self.parse_prefix_expression()?;
-                self.parse_multiplicative_expression_rest()?;
+                let pref_expr = self.parse_prefix_expression()?;
+                let mut abs_bin_expr = Box::new(AbsBinExpr::new(AbsBinOper::DIV,expr,pref_expr));
+                abs_bin_expr.calculate_abs_position();
+                expr = self.parse_multiplicative_expression_rest(abs_bin_expr)?;
             },
             Some(Token::MOD)  =>
             {
                 self.skip(Token::MOD)?;
-                self.parse_prefix_expression()?;
-                self.parse_multiplicative_expression_rest()?;
+                let pref_expr = self.parse_prefix_expression()?;
+                let mut abs_bin_expr = Box::new(AbsBinExpr::new(AbsBinOper::MOD,expr,pref_expr));
+                expr = self.parse_multiplicative_expression_rest(abs_bin_expr)?;
             },
             _ => {},
         }
         self.debug_end();
-        Ok(())
+        Ok(expr)
     }
 
-    fn parse_prefix_expression(&mut self) -> Result<(),ParseError>
+    fn parse_prefix_expression(&mut self) -> Result<Box<AbsExpr>,ParseError>
     {
         self.debug("parse_prefix_expression");
-        match self.symbol.as_ref().map(|symbol| symbol.get_token())
+        let expr = match self.symbol.as_ref().map(|symbol| symbol.get_token())
         {
             Some(Token::ADD)  => 
             {
                 self.skip(Token::ADD)?;
-                self.parse_prefix_expression()?;
+                let expr = self.parse_prefix_expression()?;
+                let mut abs_un_expr = Box::new(AbsUnExpr::new(AbsUnOper::ADD,expr));
+                abs_un_expr.calculate_abs_position();
+                abs_un_expr
             },
             Some(Token::SUB)  =>
             {
                 self.skip(Token::SUB)?;
-                self.parse_prefix_expression()?;
+                let expr = self.parse_prefix_expression()?;
+                let mut abs_un_expr = Box::new(AbsUnExpr::new(AbsUnOper::SUB,expr));
+                abs_un_expr.calculate_abs_position();
+                abs_un_expr
             },
             Some(Token::MUL) =>
             {
                 self.skip(Token::MUL)?;
-                self.parse_prefix_expression()?;
+                let expr = self.parse_prefix_expression()?;
+                let mut abs_un_expr = Box::new(AbsUnExpr::new(AbsUnOper::MUL,expr));
+                abs_un_expr.calculate_abs_position();
+                abs_un_expr
             },
             Some(Token::AND) =>
             {
                 self.skip(Token::AND)?;
-                self.parse_prefix_expression()?;
+                let expr = self.parse_prefix_expression()?;
+                let mut abs_un_expr = Box::new(AbsUnExpr::new(AbsUnOper::AND,expr));
+                abs_un_expr.calculate_abs_position();
+                abs_un_expr
             },
             Some(Token::NOT) =>
             {
                 self.skip(Token::NOT)?;
-                self.parse_prefix_expression()?;
+                let expr = self.parse_prefix_expression()?;
+                let mut abs_un_expr = Box::new(AbsUnExpr::new(AbsUnOper::NOT,expr));
+                abs_un_expr.calculate_abs_position();
+                abs_un_expr
             },
-            _ => {self.parse_postfix_expression()?;},
+            _ => {self.parse_postfix_expression()?},
         }
         self.debug_end();
-        Ok(())
+        Ok(expr)
     }
 
-    fn parse_postfix_expression(&mut self) -> Result<(), ParseError> 
+    fn parse_postfix_expression(&mut self) -> Result<Box<AbsExpr>, ParseError> 
     {
         self.debug("parse_postfix_expression"); 
-        match self.symbol.as_ref().map(|symbol| symbol.get_token())
+        let expr = match self.symbol.as_ref().map(|symbol| symbol.get_token())
         {
             Some(Token::INTCONST) => 
             {
-                let int_const = self.skip(Token::INTCONST)?;
-                self.parse_postfix_expression_rest()?;
+                let mut atom_expr = Box::new(AbsAtomExpr::new(self.skip(Token::INTCONST)?));
+                atom_expr.calculate_abs_position();
+                self.parse_postfix_expression_rest(atom_expr)?
             },
             Some(Token::REALCONST)  => 
             {
-                let real_const = self.skip(Token::REALCONST)?;
-                self.parse_postfix_expression_rest()?;
+                let mut atom_expr = Box::new(AbsAtomExpr::new(self.skip(Token::REALCONST)?));
+                atom_expr.calculate_abs_position();
+                self.parse_postfix_expression_rest(atom_expr)?
             },
             Some(Token::BOOLCONST) => 
             {
-                let bool_const = self.skip(Token::BOOLCONST)?;
-                self.parse_postfix_expression_rest()?;
+                let mut atom_expr = self.skip(Token::BOOLCONST)?;
+                atom_expr.calculate_abs_position();
+                self.parse_postfix_expression_rest(atom_expr)?
             }, 
             Some(Token::STRINGCONST) => 
             {
-                let string_const = self.skip(Token::STRINGCONST)?;
-                self.parse_postfix_expression_rest()?;
+                let mut atom_expr = self.skip(Token::STRINGCONST)?;
+                atom_expr.calculate_abs_position();
+                self.parse_postfix_expression_rest()?
             },
             Some(Token::IDENTIFIER) => 
             {
                 let identifier = self.skip(Token::IDENTIFIER)?;
-                match self.symbol.as_ref().map(|symbol| symbol.get_token()) 
+                let mut abs_expr_name = AbsExprName::new(identifier);
+                abs_expr_name.calculate_abs_position();
+                let iden_expr =  match self.symbol.as_ref().map(|symbol| symbol.get_token()) 
                 {
                     Some(Token::LPARENT) => 
                     {
                         self.skip(Token::LPARENT)?;
-                        self.parse_expressions()?;
+                        let fun_call_params = self.parse_expressions()?;
+                        //fun_call_params.calculate_abs_position();
                         self.skip(Token::RPARENT)?;
+                        let mut abs_fun_call = Box::new(AbsFunCall::new(abs_expr_name,*fun_call_params));
+                        abs_fun_call.calculate_abs_position();
+                        abs_fun_call
                     }
-                    _ => {},
+                    _ => 
+                    {
+                        Box::new(abs_expr_name)
+                    },
                 }
-                self.parse_postfix_expression_rest()?;
+                self.parse_postfix_expression_rest(iden_expr)?
             },
             Some(Token::LPARENT) =>
             {
                 self.skip(Token::LPARENT)?;
-                self.parse_expressions()?;
+                let exprs = self.parse_expressions()?;
                 self.skip(Token::RPARENT)?;
-                self.parse_postfix_expression_rest()?;
+                self.parse_postfix_expression_rest(exprs)?
             },
             Some(Token::LBRACE) => 
             {
                 self.skip(Token::LBRACE)?;
-                self.parse_postfix_brace_expression()?;
-                self.parse_postfix_expression_rest()?;
+                let brace_expr = self.parse_postfix_brace_expression()?;
+                self.parse_postfix_expression_rest(brace_expr)?
             }, 
             _ => 
             {
@@ -387,91 +451,116 @@ impl SyntaxAnalyzer
             },
         }
         self.debug_end();
-        Ok(())
+        Ok(expr)
     }
 
-    fn parse_postfix_expression_rest(&mut self) -> Result<(),ParseError>
+    fn parse_postfix_expression_rest(&mut self, abs_expr_arg : Box<AbsExpr>) -> Result<Box<AbsExpr>,ParseError>
     {
          self.debug("parse_postfix_expression_rest");
+         let mut expr = abs_expr_arg;
          match self.symbol.as_ref().map(|symbol| symbol.get_token()) 
          {
              Some(Token::DOT) =>
              {
                  self.skip(Token::DOT)?;
-                 let identifier = self.skip(Token::IDENTIFIER)?;
-                 self.parse_postfix_expression_rest()?;
+                 let identifier = Box::new(AbsExprName::new(self.skip(Token::IDENTIFIER)?));
+                 identifier.calculate_abs_position();
+                 let mut abs_bin_expr = Box::new(AbsBinExpr::new(AbsBinOper::REC,expr,identifier));
+                 abs_bin_expr.calculate_abs_position();
+                 expr = self.parse_postfix_expression_rest(abs_bin_expr)?;
              },
              Some(Token::LBRACKET) => 
              {
                  self.skip(Token::LBRACKET)?;
-                 self.parse_expression()?;
+                 let offset_expr = self.parse_expression()?;
                  self.skip(Token::RBRACKET)?;
-                 self.parse_postfix_expression_rest()?;
+                 let mut abs_bin_expr = Box::new(AbsBinExpr::new(AbsBinOper::ARR,expr,offset_expr));
+                 abs_bin_expr.calculate_abs_position();
+                 expr = self.parse_postfix_expression_rest(abs_bin_expr)?;
              },
              Some(Token::WHERE) => 
              {
                  self.skip(Token::WHERE)?;
-                 self.parse_declarations()?;
-                 self.parse_postfix_expression_rest()?;
+                 let decls = self.parse_declarations()?;
+                 let mut where_expr = Box::new(AbsWhereExpr::new(expr,decls));
+                 where_expr.calculate_abs_position();
+                 expr = self.parse_postfix_expression_rest(where_expr)?;
              },
              _ => {},
          }
          self.debug_end();
-         Ok(())
+         Ok(expr)
     }
 
-     fn parse_postfix_brace_expression(&mut self) -> Result<(),ParseError>
+     fn parse_postfix_brace_expression(&mut self) -> Result<Box<AbsExpr>,ParseError>
     {
         self.debug("parse_postfix_brace_expression");
-        match self.symbol.as_ref().map(|symbol| symbol.get_token()) 
+        let expr = match self.symbol.as_ref().map(|symbol| symbol.get_token()) 
         {
             Some(Token::RBRACE)  => 
             {
                 self.skip(Token::RBRACE)?;
+                let mut atom_expr = Box::new(AbsAtomExpr::new_with_option(None));
+                atom_expr.calculate_abs_position();
+                atom_expr
             },
             Some(Token::IDENTIFIER) =>
             {
-                let identifier = self.skip(Token::IDENTIFIER)?;
+                let expr_name =  Box::new(AbsExprName::new(self.skip(Token::IDENTIFIER)?));
+                expr_name.calculate_abs_position();
                 self.skip(Token::ASSIGN)?;
-                self.parse_expression()?;
+                let right_expr = self.parse_expression()?;
+                let mut assign_stmt = Box::new(AbsAssignStmt::new(expr_name,right_expr));
+                assign_stmt.calculate_abs_position();
                 self.skip(Token::RBRACE)?;
+                assign_stmt
             },
             Some(Token::IF) =>
             {
                 self.skip(Token::IF)?;
-                self.parse_expression()?;
+                let cond_expr = self.parse_expression()?;
                 self.skip(Token::THEN)?;
-                self.parse_expressions()?;
-                match self.symbol.as_ref().map(|symbol| symbol.get_token())
+                let then_expr = self.parse_expressions()?;
+                let else_expr = match self.symbol.as_ref().map(|symbol| symbol.get_token())
                 {
                     Some(Token::ELSE)  => 
                     {
                         self.skip(Token::ELSE)?;
-                        self.parse_expressions()?;
+                        Some(self.parse_expressions()?)
                     },
-                    _ => {},
+                    _ => {None},
                 }
                 self.skip(Token::RBRACE)?;
+                let mut if_stmt = Box::new(AbsIfStmt::new(cond_expr,then_expr,else_expr));
+                if_stmt.calculate_abs_position();
+                if_stmt
             },
             Some(Token::FOR)  =>
             {
                 self.skip(Token::FOR)?;
-                let identifier = self.skip(Token::IDENTIFIER)?;
+                let mut var_name = AbsExprName::new(self.skip(Token::IDENTIFIER)?);
+                var_name.calculate_abs_position();
                 self.skip(Token::ASSIGN)?;
-                self.parse_expression()?;
+                let lower_bound = self.parse_expression()?;
                 self.skip(Token::COMMA)?;
-                self.parse_expression()?;
+                let higher_bound = self.parse_expression()?;
                 self.skip(Token::COLON)?;
-                self.parse_expressions()?;
+                let loop_exprs = self.parse_expressions()?;
                 self.skip(Token::RBRACE)?;
+                let mut for_loop_expr = Box::new(AbsForStmt::new(var_name,lower_bound,higher_bound,loop_exprs));
+                for_loop_expr.calculate_abs_position();
+                for_loop_expr
             },
             Some(Token::WHILE) => 
             {
                 self.skip(Token::WHILE)?;
-                self.parse_expression()?;
+                let cond_expr = self.parse_expression()?;
                 self.skip(Token::COLON)?;
-                self.parse_expressions()?;
+                let loop_expr = self.parse_expressions()?;
                 self.skip(Token::RBRACE)?;
+                let mut while_expr = Box::new(AbsWhileStmt::new(cond_expr,loop_expr));
+                while_expr.calculate_abs_position();
+                while_expr
             },
             _ => 
             {
@@ -479,7 +568,7 @@ impl SyntaxAnalyzer
             },
         }
         self.debug_end();
-        Ok(())
+        Ok(expr)
     }
     
     fn parse_declarations(&mut self) -> Result<(),ParseError>
@@ -722,18 +811,6 @@ impl SyntaxAnalyzer
     }
 
 
-    /*
-     fn parse__expression(&mut self) -> Result<(),ParseError>
-    {
-        self.debug("parse_and_expression");
-        
-        self.debug_end();
-        Ok(())
-    }
-    */
-
-    
-
     fn skip(&mut self, token : Token) -> Result<Symbol, ParseError> 
     {
         //let skipped_symbol = self.symbol.take();
@@ -776,6 +853,5 @@ impl SyntaxAnalyzer
             None => {},
         }
     }
-    
 
 }

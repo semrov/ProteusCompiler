@@ -2,7 +2,7 @@ use xml::{ProteusXmlCreator,XMLable};
 use abstree::AbsTree;
 use abstree::abs_decl::*;
 use abstree::abs_expr::*;
-use abstree::abs_position::AbsPosition;
+//use abstree::abs_position::AbsPosition;
 use abstree::abs_stmt::*;
 use abstree::abs_type::*;
 use abstree::visitor::Visitor;
@@ -201,7 +201,7 @@ impl Visitor for AbsTreeXmlPrinter
         writeln!(self.xml, "<absnode node=\"WhereExpr\">").unwrap();
         acceptor.get_position_ref().map(|position| position.to_xml(&mut self.xml));
         acceptor.sub_expr.accept(self);
-        acceptor.abs_decl.accept(self);
+        acceptor.decls.accept(self);
         writeln!(self.xml, "</absnode>").unwrap();
     }
     fn visit_abs_while_stmt(&mut self, acceptor : &AbsWhileStmt)

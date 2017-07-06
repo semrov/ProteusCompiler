@@ -21,36 +21,10 @@ impl AbsDecls {
     {
         AbsDecls{decls : Vec::new(), abs_position : AbsPosition::new()}
     }
-}
-
-
-impl Positioner for AbsDecls 
-{
-    fn get_position_ref(&self) -> Option<&Position> { self.abs_position.get_position_ref() }
-    fn get_position_ref_mut(&mut self) -> Option<&mut Position> { self.abs_position.get_position_ref_mut() }
-    fn set_min_by_position(&mut self, position : &Position) 
+     pub fn calculate_abs_position(&mut self)
     {
-        self.abs_position.set_min_by_position(position);
-    }
-    fn set_min_by_symbol(&mut self, symbol : &Symbol) 
-    {
-        self.abs_position.set_min_by_symbol(symbol);
-    }
-    fn set_min_by_abstree(&mut self, abstree : &AbsTree) 
-    {
-        self.abs_position.set_min_by_abstree(abstree);
-    }
-    fn set_max_by_position(&mut self, position : &Position) 
-    {
-        self.abs_position.set_max_by_position(position);
-    }
-    fn set_max_by_symbol(&mut self, symbol : &Symbol)  
-    {
-        self.abs_position.set_max_by_symbol(symbol);
-    }
-    fn set_max_by_abstree(&mut self, abstree : &AbsTree)
-    {
-        self.abs_position.set_max_by_abstree(abstree);
+        self.abs_position.set_min(self.decls[0].get_ref_position());
+        self.abs_position.set_max(self.decls[self.decls.len() - 1].get_ref_position());
     }
 }
 
@@ -62,6 +36,19 @@ impl AbsTree for AbsDecls
     }
 }
 impl AbsDecl for AbsDecls {}
+impl Positioner for AbsDecls 
+{
+    fn get_position_ref(&self) -> Option<&Position> { self.abs_position.get_position_ref() }
+    fn get_position_ref_mut(&mut self) -> Option<&mut Position> { self.abs_position.get_position_ref_mut() }
+    fn set_min(&mut self, position : &Position) 
+    {
+        self.abs_position.set_min(position);
+    }
+    fn set_max(&mut self, position : &Position) 
+    {
+        self.abs_position.set_max(position);
+    }
+}
 
 pub struct AbsVarDecl
 {
@@ -76,37 +63,7 @@ impl AbsVarDecl
 {
     pub fn new(var_name: AbsExprName, var_type : Box<AbsType>) -> AbsVarDecl
     {
-        AbsVarDecl{var_name,var_type, abs_position : AbsPosition::new()}
-    }
-}
-
-impl Positioner for AbsVarDecl 
-{
-    fn get_position_ref(&self) -> Option<&Position> { self.abs_position.get_position_ref() }
-    fn get_position_ref_mut(&mut self) -> Option<&mut Position> { self.abs_position.get_position_ref_mut() }
-    fn set_min_by_position(&mut self, position : &Position) 
-    {
-        self.abs_position.set_min_by_position(position);
-    }
-    fn set_min_by_symbol(&mut self, symbol : &Symbol) 
-    {
-        self.abs_position.set_min_by_symbol(symbol);
-    }
-    fn set_min_by_abstree(&mut self, abstree : &AbsTree) 
-    {
-        self.abs_position.set_min_by_abstree(abstree);
-    }
-    fn set_max_by_position(&mut self, position : &Position) 
-    {
-        self.abs_position.set_max_by_position(position);
-    }
-    fn set_max_by_symbol(&mut self, symbol : &Symbol)  
-    {
-        self.abs_position.set_max_by_symbol(symbol);
-    }
-    fn set_max_by_abstree(&mut self, abstree : &AbsTree)
-    {
-        self.abs_position.set_max_by_abstree(abstree);
+       AbsVarDecl{var_name,var_type, abs_position : AbsPosition::new()}
     }
 }
 
@@ -118,6 +75,19 @@ impl AbsTree for AbsVarDecl
     }
 }
 impl AbsDecl for AbsVarDecl {}
+impl Positioner for AbsVarDecl 
+{
+    fn get_position_ref(&self) -> Option<&Position> { self.abs_position.get_position_ref() }
+    fn get_position_ref_mut(&mut self) -> Option<&mut Position> { self.abs_position.get_position_ref_mut() }
+    fn set_min(&mut self, position : &Position) 
+    {
+        self.abs_position.set_min(position);
+    }
+    fn set_max(&mut self, position : &Position) 
+    {
+        self.abs_position.set_max(position);
+    }
+}
 
 pub struct AbsFunDecl
 {
@@ -140,36 +110,6 @@ impl AbsFunDecl
     }
 }
 
-impl Positioner for AbsFunDecl 
-{
-    fn get_position_ref(&self) -> Option<&Position> { self.abs_position.get_position_ref() }
-    fn get_position_ref_mut(&mut self) -> Option<&mut Position> { self.abs_position.get_position_ref_mut() }
-    fn set_min_by_position(&mut self, position : &Position) 
-    {
-        self.abs_position.set_min_by_position(position);
-    }
-    fn set_min_by_symbol(&mut self, symbol : &Symbol) 
-    {
-        self.abs_position.set_min_by_symbol(symbol);
-    }
-    fn set_min_by_abstree(&mut self, abstree : &AbsTree) 
-    {
-        self.abs_position.set_min_by_abstree(abstree);
-    }
-    fn set_max_by_position(&mut self, position : &Position) 
-    {
-        self.abs_position.set_max_by_position(position);
-    }
-    fn set_max_by_symbol(&mut self, symbol : &Symbol)  
-    {
-        self.abs_position.set_max_by_symbol(symbol);
-    }
-    fn set_max_by_abstree(&mut self, abstree : &AbsTree)
-    {
-        self.abs_position.set_max_by_abstree(abstree);
-    }
-}
-
 impl AbsTree for AbsFunDecl 
 {
      fn accept(&self, visitor : &mut Visitor)
@@ -178,6 +118,19 @@ impl AbsTree for AbsFunDecl
     }
 }
 impl AbsDecl for AbsFunDecl {}
+impl Positioner for AbsFunDecl 
+{
+    fn get_position_ref(&self) -> Option<&Position> { self.abs_position.get_position_ref() }
+    fn get_position_ref_mut(&mut self) -> Option<&mut Position> { self.abs_position.get_position_ref_mut() }
+    fn set_min(&mut self, position : &Position) 
+    {
+        self.abs_position.set_min(position);
+    }
+    fn set_max(&mut self, position : &Position) 
+    {
+        self.abs_position.set_max(position);
+    }
+}
 
 pub struct AbsTypeDecl
 {
@@ -192,37 +145,7 @@ impl AbsTypeDecl
 {
     pub fn new(type_name : AbsTypeName, source_type : Box<AbsType>) -> AbsTypeDecl
     {
-        AbsTypeDecl{type_name,source_type,abs_position : AbsPosition::new()}
-    }
-}
-
-impl Positioner for AbsTypeDecl 
-{
-    fn get_position_ref(&self) -> Option<&Position> { self.abs_position.get_position_ref() }
-    fn get_position_ref_mut(&mut self) -> Option<&mut Position> { self.abs_position.get_position_ref_mut() }
-    fn set_min_by_position(&mut self, position : &Position) 
-    {
-        self.abs_position.set_min_by_position(position);
-    }
-    fn set_min_by_symbol(&mut self, symbol : &Symbol) 
-    {
-        self.abs_position.set_min_by_symbol(symbol);
-    }
-    fn set_min_by_abstree(&mut self, abstree : &AbsTree) 
-    {
-        self.abs_position.set_min_by_abstree(abstree);
-    }
-    fn set_max_by_position(&mut self, position : &Position) 
-    {
-        self.abs_position.set_max_by_position(position);
-    }
-    fn set_max_by_symbol(&mut self, symbol : &Symbol)  
-    {
-        self.abs_position.set_max_by_symbol(symbol);
-    }
-    fn set_max_by_abstree(&mut self, abstree : &AbsTree)
-    {
-        self.abs_position.set_max_by_abstree(abstree);
+       AbsTypeDecl{type_name,source_type,abs_position : AbsPosition::new()}
     }
 }
 
@@ -234,3 +157,16 @@ impl AbsTree for AbsTypeDecl
     }
 }
 impl AbsDecl for AbsTypeDecl {}
+impl Positioner for AbsTypeDecl 
+{
+    fn get_position_ref(&self) -> Option<&Position> { self.abs_position.get_position_ref() }
+    fn get_position_ref_mut(&mut self) -> Option<&mut Position> { self.abs_position.get_position_ref_mut() }
+    fn set_min(&mut self, position : &Position) 
+    {
+        self.abs_position.set_min(position);
+    }
+    fn set_max(&mut self, position : &Position) 
+    {
+        self.abs_position.set_max(position);
+    }
+}
