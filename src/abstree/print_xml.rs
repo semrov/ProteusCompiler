@@ -116,7 +116,7 @@ impl Visitor for AbsTreeXmlPrinter
         acceptor.var_name.accept(self);
         acceptor.lower_bound.accept(self);
         acceptor.higher_bound.accept(self);
-        acceptor.loop_expr.accept(self);
+        acceptor.loop_exprs.accept(self);
         writeln!(self.xml, "</absnode>").unwrap();
     }
     fn visit_abs_fun_call(&mut self, acceptor : &AbsFunCall)
@@ -134,7 +134,7 @@ impl Visitor for AbsTreeXmlPrinter
         acceptor.name.accept(self);
         acceptor.params.accept(self);
         acceptor.return_type.accept(self);
-        acceptor.expr.accept(self);
+        acceptor.exprs.accept(self);
         writeln!(self.xml, "</absnode>").unwrap();
     }
     fn visit_abs_if_stmt(&mut self, acceptor : &AbsIfStmt)
@@ -186,6 +186,7 @@ impl Visitor for AbsTreeXmlPrinter
         };
         writeln!(self.xml, "<absnode node=\"UnExpr\" value=\"{}\">",unrar_operation).unwrap();
         acceptor.get_position_ref().map(|position| position.to_xml(&mut self.xml));
+        acceptor.sub_expr.accept(self);
         writeln!(self.xml, "</absnode>").unwrap();
     }
     fn visit_abs_var_decl(&mut self, acceptor : &AbsVarDecl)

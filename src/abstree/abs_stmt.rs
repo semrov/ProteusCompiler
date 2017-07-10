@@ -21,12 +21,14 @@ impl AbsAssignStmt
 {
     pub fn new(left_sub_expr : Box<AbsExpr>, right_sub_expr : Box<AbsExpr>) -> AbsAssignStmt
     {
-        AbsAssignStmt{left_sub_expr,right_sub_expr,abs_position : AbsPosition::new()}  
+        let mut abs_assign_stmt = AbsAssignStmt{left_sub_expr,right_sub_expr,abs_position : AbsPosition::new()};
+        abs_assign_stmt.calculate_abs_position();
+        abs_assign_stmt
     }
     pub fn calculate_abs_position(&mut self)
     {
-        self.abs_position.set_min(self.left_sub_expr.get_position_ref());
-        self.abs_position.set_max(self.right_sub_expr.get_position_ref());
+        self.abs_position.set_min(self.left_sub_expr.get_position_ref().unwrap());
+        self.abs_position.set_max(self.right_sub_expr.get_position_ref().unwrap());
     }
 }
 
@@ -68,18 +70,20 @@ pub struct AbsIfStmt
 impl AbsIfStmt {
     pub fn new(cond_expr : Box<AbsExpr>, then_expr : Box<AbsExpr>, else_expr : Option<Box<AbsExpr>>) -> AbsIfStmt
     {
-        AbsIfStmt{cond_expr,then_expr,else_expr, abs_position : AbsPosition::new()}
+        let mut abs_if_stmt = AbsIfStmt{cond_expr,then_expr,else_expr, abs_position : AbsPosition::new()};
+        abs_if_stmt.calculate_abs_position();
+        abs_if_stmt
     }
     pub fn calculate_abs_position(&mut self)
     {
-        self.abs_position.set_min(self.cond_expr.get_position_ref());
+        self.abs_position.set_min(self.cond_expr.get_position_ref().unwrap());
         if let Some(ref expr) = self.else_expr 
         {
-           self.abs_position.set_max(self.expr.get_position_ref());
+           self.abs_position.set_max(expr.get_position_ref().unwrap());
         }
         else 
         {
-            self.abs_position.set_max(self.then_expr.get_position_ref());
+            self.abs_position.set_max(self.then_expr.get_position_ref().unwrap());
         }
         
     }
@@ -126,12 +130,14 @@ impl AbsForStmt
 {
     pub fn new(var_name : AbsExprName, lower_bound : Box<AbsExpr>, higher_bound : Box<AbsExpr>, loop_exprs : Box<AbsExpr>)-> AbsForStmt 
     {
-        AbsForStmt{var_name,lower_bound,higher_bound,loop_exprs,abs_position : AbsPosition::new()}
+        let mut abs_for_stmt = AbsForStmt{var_name,lower_bound,higher_bound,loop_exprs,abs_position : AbsPosition::new()};
+        abs_for_stmt.calculate_abs_position();
+        abs_for_stmt
     }
     pub fn calculate_abs_position(&mut self)
     {
-        self.abs_position.set_min(self.var_name.get_position_ref());
-        self.abs_position.set_max(self.loop_exprs.get_position_ref());
+        self.abs_position.set_min(self.var_name.get_position_ref().unwrap());
+        self.abs_position.set_max(self.loop_exprs.get_position_ref().unwrap());
     }
 }
 
@@ -172,12 +178,14 @@ impl AbsWhileStmt
 {
     pub fn new(cond_expr : Box<AbsExpr>, loop_expr : Box<AbsExpr> ) -> AbsWhileStmt
     {
-        AbsWhileStmt{cond_expr,loop_expr, abs_position : AbsPosition::new()}
+        let mut abs_while_stmt = AbsWhileStmt{cond_expr,loop_expr, abs_position : AbsPosition::new()};
+        abs_while_stmt.calculate_abs_position();
+        abs_while_stmt
     }
     pub fn calculate_abs_position(&mut self)
     {
-        self.abs_position.set_min(self.cond_expr.get_position_ref());
-        self.abs_position.set_max(self.loop_expr.get_position_ref());
+        self.abs_position.set_min(self.cond_expr.get_position_ref().unwrap());
+        self.abs_position.set_max(self.loop_expr.get_position_ref().unwrap());
     }
 }
 

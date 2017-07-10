@@ -4,103 +4,211 @@
 <symbol token="LPARENT">
 <position filename="p2.proteus" begLine="1" begColumn="1" endLine="1" endColumn="1"/> 
 </symbol>
-<symbol token="INTCONST"  lexeme="1">
-<position filename="p2.proteus" begLine="1" begColumn="163" endLine="1" endColumn="163"/> 
-</symbol>
-<symbol token="ADD">
-<position filename="p2.proteus" begLine="1" begColumn="165" endLine="1" endColumn="165"/> 
-</symbol>
-<symbol token="IDENTIFIER"  lexeme="f">
-<position filename="p2.proteus" begLine="1" begColumn="166" endLine="1" endColumn="166"/> 
+<symbol token="IDENTIFIER"  lexeme="getInt">
+<position filename="p2.proteus" begLine="1" begColumn="2" endLine="1" endColumn="7"/> 
 </symbol>
 <symbol token="LPARENT">
-<position filename="p2.proteus" begLine="1" begColumn="168" endLine="1" endColumn="168"/> 
+<position filename="p2.proteus" begLine="1" begColumn="8" endLine="1" endColumn="8"/> 
 </symbol>
-<symbol token="INTCONST"  lexeme="1">
-<position filename="p2.proteus" begLine="1" begColumn="169" endLine="1" endColumn="169"/> 
+<symbol token="AND">
+<position filename="p2.proteus" begLine="1" begColumn="9" endLine="1" endColumn="9"/> 
 </symbol>
-<symbol token="ADD">
-<position filename="p2.proteus" begLine="1" begColumn="171" endLine="1" endColumn="171"/> 
-</symbol>
-<symbol token="INTCONST"  lexeme="1">
-<position filename="p2.proteus" begLine="1" begColumn="172" endLine="1" endColumn="172"/> 
+<symbol token="IDENTIFIER"  lexeme="input">
+<position filename="p2.proteus" begLine="1" begColumn="10" endLine="1" endColumn="14"/> 
 </symbol>
 <symbol token="RPARENT">
-<position filename="p2.proteus" begLine="1" begColumn="174" endLine="1" endColumn="174"/> 
+<position filename="p2.proteus" begLine="1" begColumn="15" endLine="1" endColumn="15"/> 
 </symbol>
-<symbol token="MUL">
-<position filename="p2.proteus" begLine="1" begColumn="175" endLine="1" endColumn="175"/> 
+<symbol token="COMMA">
+<position filename="p2.proteus" begLine="1" begColumn="16" endLine="1" endColumn="16"/> 
 </symbol>
-<symbol token="INTCONST"  lexeme="2">
-<position filename="p2.proteus" begLine="1" begColumn="176" endLine="1" endColumn="176"/> 
+<symbol token="LBRACE">
+<position filename="p2.proteus" begLine="1" begColumn="17" endLine="1" endColumn="17"/> 
 </symbol>
-<symbol token="RPARENT">
-<position filename="p2.proteus" begLine="1" begColumn="178" endLine="1" endColumn="178"/> 
-</symbol>
-<symbol token="WHERE">
-<position filename="p2.proteus" begLine="1" begColumn="180" endLine="1" endColumn="184"/> 
-</symbol>
-<symbol token="FUN">
-<position filename="p2.proteus" begLine="1" begColumn="187" endLine="1" endColumn="189"/> 
-</symbol>
-<symbol token="IDENTIFIER"  lexeme="f">
-<position filename="p2.proteus" begLine="1" begColumn="192" endLine="1" endColumn="192"/> 
-</symbol>
-<symbol token="LPARENT">
-<position filename="p2.proteus" begLine="1" begColumn="194" endLine="1" endColumn="194"/> 
-</symbol>
-<symbol token="IDENTIFIER"  lexeme="n">
-<position filename="p2.proteus" begLine="1" begColumn="195" endLine="1" endColumn="195"/> 
-</symbol>
-<symbol token="COLON">
-<position filename="p2.proteus" begLine="1" begColumn="197" endLine="1" endColumn="197"/> 
-</symbol>
-<symbol token="INT">
-<position filename="p2.proteus" begLine="1" begColumn="198" endLine="1" endColumn="200"/> 
-</symbol>
-<symbol token="RPARENT">
-<position filename="p2.proteus" begLine="1" begColumn="202" endLine="1" endColumn="202"/> 
-</symbol>
-<symbol token="COLON">
-<position filename="p2.proteus" begLine="1" begColumn="203" endLine="1" endColumn="203"/> 
-</symbol>
-<symbol token="INT">
-<position filename="p2.proteus" begLine="1" begColumn="204" endLine="1" endColumn="206"/> 
+<symbol token="IDENTIFIER"  lexeme="x">
+<position filename="p2.proteus" begLine="1" begColumn="18" endLine="1" endColumn="18"/> 
 </symbol>
 <symbol token="ASSIGN">
-<position filename="p2.proteus" begLine="1" begColumn="209" endLine="1" endColumn="209"/> 
+<position filename="p2.proteus" begLine="1" begColumn="19" endLine="1" endColumn="19"/> 
 </symbol>
-<symbol token="INTCONST"  lexeme="1">
-<position filename="p2.proteus" begLine="1" begColumn="212" endLine="1" endColumn="212"/> 
-</symbol>
-<symbol token="ADD">
-<position filename="p2.proteus" begLine="1" begColumn="214" endLine="1" endColumn="214"/> 
-</symbol>
-<symbol token="INTCONST"  lexeme="1">
-<position filename="p2.proteus" begLine="1" begColumn="215" endLine="1" endColumn="215"/> 
-</symbol>
-<symbol token="ADD">
-<position filename="p2.proteus" begLine="1" begColumn="217" endLine="1" endColumn="217"/> 
-</symbol>
-<symbol token="IDENTIFIER"  lexeme="f">
-<position filename="p2.proteus" begLine="1" begColumn="218" endLine="1" endColumn="218"/> 
+<symbol token="IDENTIFIER"  lexeme="factoriel">
+<position filename="p2.proteus" begLine="1" begColumn="20" endLine="1" endColumn="28"/> 
 </symbol>
 <symbol token="LPARENT">
-<position filename="p2.proteus" begLine="1" begColumn="220" endLine="1" endColumn="220"/> 
+<position filename="p2.proteus" begLine="1" begColumn="29" endLine="1" endColumn="29"/> 
 </symbol>
-<symbol token="INTCONST"  lexeme="1">
-<position filename="p2.proteus" begLine="1" begColumn="221" endLine="1" endColumn="221"/> 
-</symbol>
-<symbol token="ADD">
-<position filename="p2.proteus" begLine="1" begColumn="223" endLine="1" endColumn="223"/> 
-</symbol>
-<symbol token="INTCONST"  lexeme="2">
-<position filename="p2.proteus" begLine="1" begColumn="224" endLine="1" endColumn="224"/> 
+<symbol token="IDENTIFIER"  lexeme="input">
+<position filename="p2.proteus" begLine="1" begColumn="30" endLine="1" endColumn="34"/> 
 </symbol>
 <symbol token="RPARENT">
-<position filename="p2.proteus" begLine="1" begColumn="226" endLine="1" endColumn="226"/> 
+<position filename="p2.proteus" begLine="1" begColumn="35" endLine="1" endColumn="35"/> 
+</symbol>
+<symbol token="RBRACE">
+<position filename="p2.proteus" begLine="1" begColumn="36" endLine="1" endColumn="36"/> 
+</symbol>
+<symbol token="COMMA">
+<position filename="p2.proteus" begLine="1" begColumn="37" endLine="1" endColumn="37"/> 
+</symbol>
+<symbol token="IDENTIFIER"  lexeme="putInt">
+<position filename="p2.proteus" begLine="1" begColumn="38" endLine="1" endColumn="43"/> 
+</symbol>
+<symbol token="LPARENT">
+<position filename="p2.proteus" begLine="1" begColumn="44" endLine="1" endColumn="44"/> 
+</symbol>
+<symbol token="IDENTIFIER"  lexeme="x">
+<position filename="p2.proteus" begLine="1" begColumn="45" endLine="1" endColumn="45"/> 
+</symbol>
+<symbol token="RPARENT">
+<position filename="p2.proteus" begLine="1" begColumn="46" endLine="1" endColumn="46"/> 
+</symbol>
+<symbol token="RPARENT">
+<position filename="p2.proteus" begLine="1" begColumn="47" endLine="1" endColumn="47"/> 
+</symbol>
+<symbol token="WHERE">
+<position filename="p2.proteus" begLine="1" begColumn="49" endLine="1" endColumn="53"/> 
+</symbol>
+<symbol token="VAR">
+<position filename="p2.proteus" begLine="1" begColumn="55" endLine="1" endColumn="57"/> 
+</symbol>
+<symbol token="IDENTIFIER"  lexeme="input">
+<position filename="p2.proteus" begLine="1" begColumn="59" endLine="1" endColumn="63"/> 
+</symbol>
+<symbol token="COLON">
+<position filename="p2.proteus" begLine="1" begColumn="64" endLine="1" endColumn="64"/> 
+</symbol>
+<symbol token="INT">
+<position filename="p2.proteus" begLine="1" begColumn="65" endLine="1" endColumn="67"/> 
 </symbol>
 <symbol token="SEMIC">
-<position filename="p2.proteus" begLine="1" begColumn="227" endLine="1" endColumn="227"/> 
+<position filename="p2.proteus" begLine="1" begColumn="68" endLine="1" endColumn="68"/> 
+</symbol>
+<symbol token="VAR">
+<position filename="p2.proteus" begLine="1" begColumn="70" endLine="1" endColumn="72"/> 
+</symbol>
+<symbol token="IDENTIFIER"  lexeme="x">
+<position filename="p2.proteus" begLine="1" begColumn="74" endLine="1" endColumn="74"/> 
+</symbol>
+<symbol token="COLON">
+<position filename="p2.proteus" begLine="1" begColumn="75" endLine="1" endColumn="75"/> 
+</symbol>
+<symbol token="INT">
+<position filename="p2.proteus" begLine="1" begColumn="76" endLine="1" endColumn="78"/> 
+</symbol>
+<symbol token="SEMIC">
+<position filename="p2.proteus" begLine="1" begColumn="79" endLine="1" endColumn="79"/> 
+</symbol>
+<symbol token="FUN">
+<position filename="p2.proteus" begLine="2" begColumn="1" endLine="2" endColumn="3"/> 
+</symbol>
+<symbol token="IDENTIFIER"  lexeme="factoriel">
+<position filename="p2.proteus" begLine="2" begColumn="5" endLine="2" endColumn="13"/> 
+</symbol>
+<symbol token="LPARENT">
+<position filename="p2.proteus" begLine="2" begColumn="14" endLine="2" endColumn="14"/> 
+</symbol>
+<symbol token="IDENTIFIER"  lexeme="n">
+<position filename="p2.proteus" begLine="2" begColumn="15" endLine="2" endColumn="15"/> 
+</symbol>
+<symbol token="COLON">
+<position filename="p2.proteus" begLine="2" begColumn="16" endLine="2" endColumn="16"/> 
+</symbol>
+<symbol token="INT">
+<position filename="p2.proteus" begLine="2" begColumn="17" endLine="2" endColumn="19"/> 
+</symbol>
+<symbol token="RPARENT">
+<position filename="p2.proteus" begLine="2" begColumn="20" endLine="2" endColumn="20"/> 
+</symbol>
+<symbol token="COLON">
+<position filename="p2.proteus" begLine="2" begColumn="21" endLine="2" endColumn="21"/> 
+</symbol>
+<symbol token="INT">
+<position filename="p2.proteus" begLine="2" begColumn="22" endLine="2" endColumn="24"/> 
+</symbol>
+<symbol token="ASSIGN">
+<position filename="p2.proteus" begLine="2" begColumn="25" endLine="2" endColumn="25"/> 
+</symbol>
+<symbol token="LBRACE">
+<position filename="p2.proteus" begLine="2" begColumn="26" endLine="2" endColumn="26"/> 
+</symbol>
+<symbol token="IF">
+<position filename="p2.proteus" begLine="2" begColumn="27" endLine="2" endColumn="28"/> 
+</symbol>
+<symbol token="IDENTIFIER"  lexeme="n">
+<position filename="p2.proteus" begLine="2" begColumn="30" endLine="2" endColumn="30"/> 
+</symbol>
+<symbol token="LEQ">
+<position filename="p2.proteus" begLine="2" begColumn="31" endLine="2" endColumn="32"/> 
+</symbol>
+<symbol token="INTCONST"  lexeme="0">
+<position filename="p2.proteus" begLine="2" begColumn="33" endLine="2" endColumn="33"/> 
+</symbol>
+<symbol token="THEN">
+<position filename="p2.proteus" begLine="2" begColumn="35" endLine="2" endColumn="38"/> 
+</symbol>
+<symbol token="LBRACE">
+<position filename="p2.proteus" begLine="2" begColumn="40" endLine="2" endColumn="40"/> 
+</symbol>
+<symbol token="IDENTIFIER"  lexeme="x">
+<position filename="p2.proteus" begLine="2" begColumn="41" endLine="2" endColumn="41"/> 
+</symbol>
+<symbol token="ASSIGN">
+<position filename="p2.proteus" begLine="2" begColumn="42" endLine="2" endColumn="42"/> 
+</symbol>
+<symbol token="INTCONST"  lexeme="1">
+<position filename="p2.proteus" begLine="2" begColumn="43" endLine="2" endColumn="43"/> 
+</symbol>
+<symbol token="RBRACE">
+<position filename="p2.proteus" begLine="2" begColumn="44" endLine="2" endColumn="44"/> 
+</symbol>
+<symbol token="ELSE">
+<position filename="p2.proteus" begLine="2" begColumn="46" endLine="2" endColumn="49"/> 
+</symbol>
+<symbol token="LBRACE">
+<position filename="p2.proteus" begLine="2" begColumn="51" endLine="2" endColumn="51"/> 
+</symbol>
+<symbol token="IDENTIFIER"  lexeme="x">
+<position filename="p2.proteus" begLine="2" begColumn="52" endLine="2" endColumn="52"/> 
+</symbol>
+<symbol token="ASSIGN">
+<position filename="p2.proteus" begLine="2" begColumn="53" endLine="2" endColumn="53"/> 
+</symbol>
+<symbol token="IDENTIFIER"  lexeme="n">
+<position filename="p2.proteus" begLine="2" begColumn="54" endLine="2" endColumn="54"/> 
+</symbol>
+<symbol token="MUL">
+<position filename="p2.proteus" begLine="2" begColumn="55" endLine="2" endColumn="55"/> 
+</symbol>
+<symbol token="IDENTIFIER"  lexeme="factoriel">
+<position filename="p2.proteus" begLine="2" begColumn="56" endLine="2" endColumn="64"/> 
+</symbol>
+<symbol token="LPARENT">
+<position filename="p2.proteus" begLine="2" begColumn="65" endLine="2" endColumn="65"/> 
+</symbol>
+<symbol token="IDENTIFIER"  lexeme="n">
+<position filename="p2.proteus" begLine="2" begColumn="66" endLine="2" endColumn="66"/> 
+</symbol>
+<symbol token="SUB">
+<position filename="p2.proteus" begLine="2" begColumn="67" endLine="2" endColumn="67"/> 
+</symbol>
+<symbol token="INTCONST"  lexeme="1">
+<position filename="p2.proteus" begLine="2" begColumn="68" endLine="2" endColumn="68"/> 
+</symbol>
+<symbol token="RPARENT">
+<position filename="p2.proteus" begLine="2" begColumn="69" endLine="2" endColumn="69"/> 
+</symbol>
+<symbol token="RBRACE">
+<position filename="p2.proteus" begLine="2" begColumn="70" endLine="2" endColumn="70"/> 
+</symbol>
+<symbol token="RBRACE">
+<position filename="p2.proteus" begLine="2" begColumn="71" endLine="2" endColumn="71"/> 
+</symbol>
+<symbol token="COMMA">
+<position filename="p2.proteus" begLine="2" begColumn="72" endLine="2" endColumn="72"/> 
+</symbol>
+<symbol token="IDENTIFIER"  lexeme="x">
+<position filename="p2.proteus" begLine="2" begColumn="73" endLine="2" endColumn="73"/> 
+</symbol>
+<symbol token="SEMIC">
+<position filename="p2.proteus" begLine="2" begColumn="74" endLine="2" endColumn="74"/> 
 </symbol>
 </lexanal>

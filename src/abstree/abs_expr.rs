@@ -28,6 +28,11 @@ impl AbsExprs
     {
          AbsExprs{exprs : exprs, abs_position : AbsPosition::new()}
     }
+    pub fn add_expression(&mut self, expr : Box<AbsExpr>)
+    {
+        self.exprs.push(expr);
+        self.calculate_abs_position();
+    }
     pub fn calculate_abs_position(&mut self)
     {
         self.abs_position.set_min(self.exprs[0].get_position_ref().unwrap());
@@ -78,13 +83,18 @@ impl AbsAtomExpr
         {
             report::error("Internal error in AbsAtomExpr: expression is not constant!", report::ExitCode::AbstractSyntaxTreeInvalidExpression);
         }
-        AbsAtomExpr{expr : Some(expr), abs_position : AbsPosition::new()}
+        let mut abs_atom_expr = AbsAtomExpr{expr : Some(expr), abs_position : AbsPosition::new()};
+        abs_atom_expr.calculate_abs_position();
+        abs_atom_expr
     }
 
     pub fn calculate_abs_position(&mut self)
     {
-        self.abs_position.set_min(self.expr.as_ref().map(|symbol|  symbol.get_ref_position()));
-        self.abs_position.set_max(self.expr.as_ref().map(|symbol|  symbol.get_ref_position()));
+        if let Some(ref symbol) = self.expr
+        {
+            self.abs_position.set_min(symbol.get_ref_position());
+            self.abs_position.set_max(symbol.get_ref_position());
+        }
     }
 
     pub fn new_with_option(expr : Option<Symbol>) -> AbsAtomExpr
@@ -100,7 +110,9 @@ impl AbsAtomExpr
                 }
             }
         }
-        AbsAtomExpr{expr, abs_position : AbsPosition::new()}
+        let mut abs_atom_expr = AbsAtomExpr{expr, abs_position : AbsPosition::new()};
+        abs_atom_expr.calculate_abs_position();
+        abs_atom_expr
     }
     
 }
@@ -139,7 +151,9 @@ impl AbsExprName
 {
     pub fn new(identifier : Symbol) -> AbsExprName
     {
-       AbsExprName{identifier, abs_position : AbsPosition::new()}
+       let mut abs_expr_name = AbsExprName{identifier, abs_position : AbsPosition::new()};
+       abs_expr_name.calculate_abs_position();
+       abs_expr_name
     }
     pub fn calculate_abs_position(&mut self)
     {
@@ -207,7 +221,9 @@ impl AbsBinExpr
 {
     pub fn new(operation :AbsBinOper, left_sub_expr : Box<AbsExpr>, right_sub_expr : Box<AbsExpr>) -> AbsBinExpr
     {
-        AbsBinExpr {operation,left_sub_expr,right_sub_expr,abs_position : AbsPosition::new()}
+        let mut abs_bin_expr = AbsBinExpr {operation,left_sub_expr,right_sub_expr,abs_position : AbsPosition::new()};
+        abs_bin_expr.calculate_abs_position();
+        abs_bin_expr
     }
     pub fn calculate_abs_position(&mut self)
     {
@@ -261,7 +277,9 @@ impl AbsUnExpr
 {
     pub fn new(operation : AbsUnOper, sub_expr : Box<AbsExpr>) -> AbsUnExpr
     {
-       AbsUnExpr{operation,sub_expr,abs_position : AbsPosition::new()}
+       let mut abs_un_expr = AbsUnExpr{operation,sub_expr,abs_position : AbsPosition::new()};
+       abs_un_expr.calculate_abs_position();
+       abs_un_expr
     }
     pub fn calculate_abs_position(&mut self)
     {
@@ -306,7 +324,9 @@ impl AbsFunCall
 {
     pub fn new(name : AbsExprName, args : AbsExprs) -> AbsFunCall
     {
-        AbsFunCall{name,args, abs_position : AbsPosition::new()}
+        let mut abs_fun_call = AbsFunCall{name,args, abs_position : AbsPosition::new()};
+        abs_fun_call.calculate_abs_position();
+        abs_fun_call
     }
     pub fn calculate_abs_position(&mut self)
     {
@@ -351,7 +371,14 @@ impl AbsWhereExpr
 {
     pub fn new(sub_expr : Box<AbsExpr>, decls : AbsDecls) -> Self
     {
-        AbsWhereExpr{sub_expr, decls, abs_position : AbsPosition::new()}
+        let mut abs_where_expr =AbsWhereExpr{sub_expr, decls, abs_position : AbsPosition::new()};
+        abs_where_expr.calculate_abs_position();
+        abs_where_expr
+    }
+    pub fn calculate_abs_position(&mut self)
+    {
+        self.abs_position.set_min(self.sub_expr.get_position_ref().unwrap());
+        self.abs_position.set_max(self.decls.get_position_ref().unwrap());
     }
 }
 

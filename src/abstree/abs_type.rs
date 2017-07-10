@@ -19,9 +19,16 @@ pub struct AbsArrType
 
 impl AbsArrType
 {
-    pub fn new(arr_type : Box<AbsType>, size : Box<AbsExpr>) -> AbsArrType
+    pub fn new(arr_type : Box<AbsType>, size : Box<AbsExpr>, arr_symbol : &Symbol) -> AbsArrType
     {
-        AbsArrType{arr_type,size, abs_position : AbsPosition::new()}
+        let mut abs_arr_type = AbsArrType{arr_type,size, abs_position : AbsPosition::new()};
+        abs_arr_type.calculate_abs_position(arr_symbol);
+        abs_arr_type
+    }
+    pub fn calculate_abs_position(&mut self, arr_symbol : &Symbol)
+    {
+        self.abs_position.set_min(arr_symbol.get_ref_position());
+        self.abs_position.set_max(self.arr_type.get_position_ref().unwrap());
     }
 }
 
@@ -65,9 +72,20 @@ pub struct AbsAtomType
 
 impl AbsAtomType 
 {
-    pub fn new(atom_type : AtomType) -> AbsAtomType
+    pub fn new(atom_type : AtomType, symbol : &Symbol) -> AbsAtomType
     {
-        AbsAtomType{atom_type, abs_position : AbsPosition::new()}
+        let mut abs_atom_type = AbsAtomType{atom_type, abs_position : AbsPosition::new()};
+        abs_atom_type.calculate_abs_position(symbol);
+        abs_atom_type
+    }
+    pub fn new_void_type() -> AbsAtomType
+    {
+        AbsAtomType{atom_type: AtomType::VOID, abs_position : AbsPosition::new()}
+    }
+    pub fn calculate_abs_position(&mut self, symbol : &Symbol )
+    {
+        self.abs_position.set_min(symbol.get_ref_position());
+        self.abs_position.set_max(symbol.get_ref_position());
     }
 }
 
@@ -103,9 +121,16 @@ pub struct AbsPointerType
 
 impl AbsPointerType
 {
-    pub fn new(ptype : Box<AbsType>) -> AbsPointerType
+    pub fn new(ptype : Box<AbsType>,pointer_symbol : &Symbol) -> AbsPointerType
     {
-        AbsPointerType{ptype, abs_position : AbsPosition::new()}
+        let mut abs_ptype = AbsPointerType{ptype, abs_position : AbsPosition::new()};
+        abs_ptype.calculate_abs_position(pointer_symbol);
+        abs_ptype
+    }
+    pub fn calculate_abs_position(&mut self, pointer_symbol : &Symbol)
+    {
+        self.abs_position.set_min(pointer_symbol.get_ref_position());
+        self.abs_position.set_max(self.ptype.get_position_ref().unwrap());
     }
 }
 
@@ -140,9 +165,16 @@ pub struct AbsRecType
 
 impl AbsRecType
 {
-    pub fn new(compoments : AbsDecls) -> AbsRecType
+    pub fn new(compoments : AbsDecls, rec_symbol : &Symbol) -> AbsRecType
     {
-        AbsRecType{compoments, abs_position : AbsPosition::new()}
+        let mut abs_rec_type = AbsRecType{compoments, abs_position : AbsPosition::new()};
+        abs_rec_type.calculate_abs_position(rec_symbol);
+        abs_rec_type
+    }
+    pub fn calculate_abs_position(&mut self, rec_symbol : &Symbol)
+    {
+        self.abs_position.set_min(rec_symbol.get_ref_position());
+        self.abs_position.set_max(self.compoments.get_position_ref().unwrap());
     }
 }
 
@@ -179,7 +211,14 @@ impl AbsTypeName
 {
     pub fn new(identifier : Symbol)->AbsTypeName
     {
-        AbsTypeName{identifier, abs_position : AbsPosition::new()}
+        let mut abs_type_name = AbsTypeName{identifier, abs_position : AbsPosition::new()};
+        abs_type_name.calculate_abs_position();
+        abs_type_name
+    }
+    pub fn calculate_abs_position(&mut self)
+    {
+        self.abs_position.set_min(self.identifier.get_ref_position());
+        self.abs_position.set_max(self.identifier.get_ref_position());
     }
 }
 

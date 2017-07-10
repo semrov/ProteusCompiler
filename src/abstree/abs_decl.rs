@@ -21,10 +21,15 @@ impl AbsDecls {
     {
         AbsDecls{decls : Vec::new(), abs_position : AbsPosition::new()}
     }
-     pub fn calculate_abs_position(&mut self)
+    pub fn add_decl(&mut self, decl : Box<AbsDecl>)
     {
-        self.abs_position.set_min(self.decls[0].get_ref_position());
-        self.abs_position.set_max(self.decls[self.decls.len() - 1].get_ref_position());
+        self.decls.push(decl);
+        self.calculate_abs_position();
+    }
+    pub fn calculate_abs_position(&mut self)
+    {
+        self.abs_position.set_min(self.decls[0].get_position_ref().unwrap());
+        self.abs_position.set_max(self.decls[self.decls.len() - 1].get_position_ref().unwrap());
     }
 }
 
@@ -63,8 +68,16 @@ impl AbsVarDecl
 {
     pub fn new(var_name: AbsExprName, var_type : Box<AbsType>) -> AbsVarDecl
     {
-       AbsVarDecl{var_name,var_type, abs_position : AbsPosition::new()}
+       let mut abs_var_decl = AbsVarDecl{var_name,var_type, abs_position : AbsPosition::new()};
+       abs_var_decl.calculate_abs_position();
+       abs_var_decl
     }
+    pub fn calculate_abs_position(&mut self)
+    {
+        self.abs_position.set_min(self.var_name.get_position_ref().unwrap());
+        self.abs_position.set_max(self.var_type.get_position_ref().unwrap());
+    }
+
 }
 
 impl AbsTree for AbsVarDecl 
@@ -99,15 +112,23 @@ pub struct AbsFunDecl
     //return type of function
     pub return_type : Box<AbsType>,
     //function body
-    pub expr : Box<AbsExpr>,
+    pub exprs : Box<AbsExpr>,
 }
 
 impl AbsFunDecl
 {
-    pub fn new(name : AbsExprName, params : AbsDecls, return_type : Box<AbsType>, expr : Box<AbsExpr> ) -> AbsFunDecl
+    pub fn new(name : AbsExprName, params : AbsDecls, return_type : Box<AbsType>, exprs : Box<AbsExpr> ) -> AbsFunDecl
     {
-        AbsFunDecl{name,params,return_type,expr, abs_position : AbsPosition::new()}
+        let mut fun_decl = AbsFunDecl{name,params,return_type,exprs, abs_position : AbsPosition::new()};
+        fun_decl.calculate_abs_position();
+        fun_decl
     }
+    pub fn calculate_abs_position(&mut self)
+    {
+        self.abs_position.set_min(self.name.get_position_ref().unwrap());
+        self.abs_position.set_max(self.exprs.get_position_ref().unwrap());
+    }
+    
 }
 
 impl AbsTree for AbsFunDecl 
@@ -145,7 +166,14 @@ impl AbsTypeDecl
 {
     pub fn new(type_name : AbsTypeName, source_type : Box<AbsType>) -> AbsTypeDecl
     {
-       AbsTypeDecl{type_name,source_type,abs_position : AbsPosition::new()}
+       let mut abs_type_decl = AbsTypeDecl{type_name,source_type,abs_position : AbsPosition::new()};
+       abs_type_decl.calculate_abs_position();
+       abs_type_decl
+    }
+     pub fn calculate_abs_position(&mut self)
+    {
+        self.abs_position.set_min(self.type_name.get_position_ref().unwrap());
+        self.abs_position.set_max(self.source_type.get_position_ref().unwrap());
     }
 }
 

@@ -125,6 +125,7 @@ impl LexicalAnalyzer {
      fn seek_back(&mut self) 
      {
          self.reader.seek(SeekFrom::Current(-1)).unwrap();
+         self.column -= 1;
       }
 
      fn get_literal_position(&self, begin_column : u64, lenght : u64) -> Position
@@ -139,16 +140,16 @@ impl LexicalAnalyzer {
          let mut literal_begin = self.column;
 
          loop 
-         {
+        {
              let chr = match self.get_next_char() 
-             {
+            {
                  Ok(Some(c)) =>
-                 {
-                      Some(c)
-                 },
+                {
+                    Some(c)
+                },
                  Ok(None) => None, 
                  Err(e) => return Err(e),
-             };
+            };
 
              match state 
              {
@@ -251,7 +252,13 @@ impl LexicalAnalyzer {
                      match chr 
                      {
                          Some('\r') => {},
-                         Some('\n') => state = ParserState::InitialState,
+                         Some('\n') => 
+                        {
+                             state = ParserState::InitialState;
+                             self.column = 1;
+                             self.line += 1;
+                             literal_begin = 1;
+                        },
                          Some(c) if (c as u8) < 32 || (c as u8) > 126 => report::error_at_position(&format!("Invalid character '{}' (ascii: {}) in comment\n",c, c as u8),
                                                                                                                                             &self.get_literal_position(literal_begin,1),
                                                                                                                                             ExitCode::LexicalAnalyzerIlegallChar),

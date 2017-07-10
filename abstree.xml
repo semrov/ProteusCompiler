@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="C:\Users\Jure\Documents\rust-projects\ProteusCompiler\xsl\abstree.xsl"?>
+<abstree>
+<absnode node="AbsExprs">
+<position filename="p21.proteus" begLine="1" begColumn="2" endLine="2" endColumn="104"/> 
+<absnode node="WhereExpr">
+<position filename="p21.proteus" begLine="1" begColumn="2" endLine="2" endColumn="104"/> 
+<absnode node="AbsExprs">
+<position filename="p21.proteus" begLine="1" begColumn="2" endLine="1" endColumn="73"/> 
+<absnode node="FunCall">
+<position filename="p21.proteus" begLine="1" begColumn="2" endLine="1" endColumn="14"/> 
+<absnode node="ExprName">
+<position filename="p21.proteus" begLine="1" begColumn="2" endLine="1" endColumn="7"/> 
+<symbol token="IDENTIFIER"  lexeme="getInt">
+<position filename="p21.proteus" begLine="1" begColumn="2" endLine="1" endColumn="7"/> 
+</symbol>
+</absnode>
+<absnode node="AbsExprs">
+<position filename="p21.proteus" begLine="1" begColumn="10" endLine="1" endColumn="14"/> 
+<absnode node="UnExpr" value="AND">
+<position filename="p21.proteus" begLine="1" begColumn="10" endLine="1" endColumn="14"/> 
+<absnode node="ExprName">
+<position filename="p21.proteus" begLine="1" begColumn="10" endLine="1" endColumn="14"/> 
+<symbol token="IDENTIFIER"  lexeme="input">
+<position filename="p21.proteus" begLine="1" begColumn="10" endLine="1" endColumn="14"/> 
+</symbol>
+</absnode>
+</absnode>
+</absnode>
+</absnode>
+<absnode node="AbsExprs">
+<position filename="p21.proteus" begLine="1" begColumn="23" endLine="1" endColumn="44"/> 
+<absnode node="ForStmt">
+<position filename="p21.proteus" begLine="1" begColumn="23" endLine="1" endColumn="44"/> 
+<absnode node="ExprName">
+<position filename="p21.proteus" begLine="1" begColumn="23" endLine="1" endColumn="23"/> 
+<symbol token="IDENTIFIER"  lexeme="j">
+<position filename="p21.proteus" begLine="1" begColumn="23" endLine="1" endColumn="23"/> 
+</symbol>
+</absnode>
+<absnode node="AtomExpr">
+<position filename="p21.proteus" begLine="1" begColumn="25" endLine="1" endColumn="25"/> 
+<symbol token="INTCONST"  lexeme="0">
+<position filename="p21.proteus" begLine="1" begColumn="25" endLine="1" endColumn="25"/> 
+</symbol>
+</absnode>
+<absnode node="BinExpr" value="LTH">
+<position filename="p21.proteus" begLine="1" begColumn="28" endLine="1" endColumn="34"/> 
+<absnode node="ExprName">
+<position filename="p21.proteus" begLine="1" begColumn="28" endLine="1" endColumn="28"/> 
+<symbol token="IDENTIFIER"  lexeme="j">
+<position filename="p21.proteus" begLine="1" begColumn="28" endLine="1" endColumn="28"/> 
+</symbol>
+</absnode>
+<absnode node="ExprName">
+<position filename="p21.proteus" begLine="1" begColumn="30" endLine="1" endColumn="34"/> 
+<symbol token="IDENTIFIER"  lexeme="input">
+<position filename="p21.proteus" begLine="1" begColumn="30" endLine="1" endColumn="34"/> 
+</symbol>
+</absnode>
+</absnode>
+<absnode node="AbsExprs">
+<position filename="p21.proteus" begLine="1" begColumn="39" endLine="1" endColumn="44"/> 
+<absnode node="AssignStmt">
+<position filename="p21.proteus" begLine="1" begColumn="39" endLine="1" endColumn="44"/> 
+<absnode node="ExprName">
+<position filename="p21.proteus" begLine="1" begColumn="39" endLine="1" endColumn="39"/> 
+<symbol token="IDENTIFIER"  lexeme="a">
+<position filename="p21.proteus" begLine="1" begColumn="39" endLine="1" endColumn="39"/> 
+</symbol>
+</absnode>
+<absnode node="UnExpr" value="SUB">
+<position filename="p21.proteus" begLine="1" begColumn="44" endLine="1" endColumn="44"/> 
+<absnode node="AtomExpr">
+<position filename="p21.proteus" begLine="1" begColumn="44" endLine="1" endColumn="44"/> 
+<symbol token="INTCONST"  lexeme="1">
+<position filename="p21.proteus" begLine="1" begColumn="44" endLine="1" endColumn="44"/> 
+</symbol>
+</absnode>
+</absnode>
+</absnode>
+</absnode>
+</absnode>
+</absnode>
+<absnode node="AssignStmt">
+<position filename="p21.proteus" begLine="1" begColumn="50" endLine="1" endColumn="60"/> 
+<absnode node="ExprName">
+<position filename="p21.proteus" begLine="1" begColumn="50" endLine="1" endColumn="50"/> 
+<symbol token="IDENTIFIER"  lexeme="i">
+<position filename="p21.proteus" begLine="1" begColumn="50" endLine="1" endColumn="50"/> 
+</symbol>
+</absnode>
+<absnode node="FunCall">
+<position filename="p21.proteus" begLine="1" begColumn="52" endLine="1" endColumn="60"/> 
+<absnode node="ExprName">
+<position filename="p21.proteus" begLine="1" begColumn="52" endLine="1" endColumn="54"/> 
+<symbol token="IDENTIFIER"  lexeme="fib">
+<position filename="p21.proteus" begLine="1" begColumn="52" endLine="1" endColumn="54"/> 
+</symbol>
+</absnode>
+<absnode node="AbsExprs">
+<position filename="p21.proteus" begLine="1" begColumn="56" endLine="1" endColumn="60"/> 
+<absnode node="ExprName">
+<position filename="p21.proteus" begLine="1" begColumn="56" endLine="1" endColumn="60"/> 
+<symbol token="IDENTIFIER"  lexeme="input">
+<position filename="p21.proteus" begLine="1" begColumn="56" endLine="1" endColumn="60"/> 
+</symbol>
+</absnode>
+</absnode>
+</absnode>
+</absnode>
+<absnode node="FunCall">
+<position filename="p21.proteus" begLine="1" begColumn="64" endLine="1" endColumn="73"/> 
+<absnode node="ExprName">
+<position filename="p21.proteus" begLine="1" begColumn="64" endLine="1" endColumn="69"/> 
+<symbol token="IDENTIFIER"  lexeme="putInt">
+<position filename="p21.proteus" begLine="1" begColumn="64" endLine="1" endColumn="69"/> 
+</symbol>
+</absnode>
+<absnode node="AbsExprs">
+<position filename="p21.proteus" begLine="1" begColumn="71" endLine="1" endColumn="73"/> 
+<absnode node="BinExpr" value="ARR">
+<position filename="p21.proteus" begLine="1" begColumn="71" endLine="1" endColumn="73"/> 
+<absnode node="ExprName">
+<position filename="p21.proteus" begLine="1" begColumn="71" endLine="1" endColumn="71"/> 
+<symbol token="IDENTIFIER"  lexeme="a">
+<position filename="p21.proteus" begLine="1" begColumn="71" endLine="1" endColumn="71"/> 
+</symbol>
+</absnode>
+<absnode node="ExprName">
+<position filename="p21.proteus" begLine="1" begColumn="73" endLine="1" endColumn="73"/> 
+<symbol token="IDENTIFIER"  lexeme="i">
+<position filename="p21.proteus" begLine="1" begColumn="73" endLine="1" endColumn="73"/> 
+</symbol>
+</absnode>
+</absnode>
+</absnode>
+</absnode>
+</absnode>
+<absnode node="Decls">
+<position filename="p21.proteus" begLine="1" begColumn="89" endLine="2" endColumn="104"/> 
+<absnode node="VarDecl">
+<position filename="p21.proteus" begLine="1" begColumn="89" endLine="1" endColumn="93"/> 
+<absnode node="ExprName">
+<position filename="p21.proteus" begLine="1" begColumn="89" endLine="1" endColumn="89"/> 
+<symbol token="IDENTIFIER"  lexeme="i">
+<position filename="p21.proteus" begLine="1" begColumn="89" endLine="1" endColumn="89"/> 
+</symbol>
+</absnode>
+<absnode node="AtomType" value="INT">
+<position filename="p21.proteus" begLine="1" begColumn="91" endLine="1" endColumn="93"/> 
+</absnode>
+</absnode>
+<absnode node="VarDecl">
+<position filename="p21.proteus" begLine="1" begColumn="99" endLine="1" endColumn="103"/> 
+<absnode node="ExprName">
+<position filename="p21.proteus" begLine="1" begColumn="99" endLine="1" endColumn="99"/> 
+<symbol token="IDENTIFIER"  lexeme="j">
+<position filename="p21.proteus" begLine="1" begColumn="99" endLine="1" endColumn="99"/> 
+</symbol>
+</absnode>
+<absnode node="AtomType" value="INT">
+<position filename="p21.proteus" begLine="1" begColumn="101" endLine="1" endColumn="103"/> 
+</absnode>
+</absnode>
+<absnode node="VarDecl">
+<position filename="p21.proteus" begLine="1" begColumn="109" endLine="1" endColumn="115"/> 
+<absnode node="ExprName">
+<position filename="p21.proteus" begLine="1" begColumn="109" endLine="1" endColumn="111"/> 
+<symbol token="IDENTIFIER"  lexeme="qwe">
+<position filename="p21.proteus" begLine="1" begColumn="109" endLine="1" endColumn="111"/> 
+</symbol>
+</absnode>
+<absnode node="AtomType" value="INT">
+<position filename="p21.proteus" begLine="1" begColumn="113" endLine="1" endColumn="115"/> 
+</absnode>
+</absnode>
+<absnode node="VarDecl">
+<position filename="p21.proteus" begLine="1" begColumn="122" endLine="1" endColumn="130"/> 
+<absnode node="ExprName">
+<position filename="p21.proteus" begLine="1" begColumn="122" endLine="1" endColumn="126"/> 
+<symbol token="IDENTIFIER"  lexeme="input">
+<position filename="p21.proteus" begLine="1" begColumn="122" endLine="1" endColumn="126"/> 
+</symbol>
+</absnode>
+<absnode node="AtomType" value="INT">
+<position filename="p21.proteus" begLine="1" begColumn="128" endLine="1" endColumn="130"/> 
+</absnode>
+</absnode>
+<absnode node="TypeDecl">
+<position filename="p21.proteus" begLine="1" begColumn="137" endLine="1" endColumn="149"/> 
+<absnode node="TypeName">
+<position filename="p21.proteus" begLine="1" begColumn="137" endLine="1" endColumn="137"/> 
+<symbol token="IDENTIFIER"  lexeme="a">
+<position filename="p21.proteus" begLine="1" begColumn="137" endLine="1" endColumn="137"/> 
+</symbol>
+</absnode>
+<absnode node="ArrType">
+<position filename="p21.proteus" begLine="1" begColumn="139" endLine="1" endColumn="149"/> 
+<absnode node="AtomType" value="INT">
+<position filename="p21.proteus" begLine="1" begColumn="147" endLine="1" endColumn="149"/> 
+</absnode>
+<absnode node="AtomExpr">
+<position filename="p21.proteus" begLine="1" begColumn="143" endLine="1" endColumn="144"/> 
+<symbol token="INTCONST"  lexeme="50">
+<position filename="p21.proteus" begLine="1" begColumn="143" endLine="1" endColumn="144"/> 
+</symbol>
+</absnode>
+</absnode>
+</absnode>
+<absnode node="FunDecl">
+<position filename="p21.proteus" begLine="2" begColumn="5" endLine="2" endColumn="104"/> 
+<absnode node="ExprName">
+<position filename="p21.proteus" begLine="2" begColumn="5" endLine="2" endColumn="7"/> 
+<symbol token="IDENTIFIER"  lexeme="fib">
+<position filename="p21.proteus" begLine="2" begColumn="5" endLine="2" endColumn="7"/> 
+</symbol>
+</absnode>
+<absnode node="Decls">
+<position filename="p21.proteus" begLine="2" begColumn="9" endLine="2" endColumn="13"/> 
+<absnode node="VarDecl">
+<position filename="p21.proteus" begLine="2" begColumn="9" endLine="2" endColumn="13"/> 
+<absnode node="ExprName">
+<position filename="p21.proteus" begLine="2" begColumn="9" endLine="2" endColumn="9"/> 
+<symbol token="IDENTIFIER"  lexeme="c">
+<position filename="p21.proteus" begLine="2" begColumn="9" endLine="2" endColumn="9"/> 
+</symbol>
+</absnode>
+<absnode node="AtomType" value="INT">
+<position filename="p21.proteus" begLine="2" begColumn="11" endLine="2" endColumn="13"/> 
+</absnode>
+</absnode>
+</absnode>
+<absnode node="AtomType" value="INT">
+<position filename="p21.proteus" begLine="2" begColumn="16" endLine="2" endColumn="18"/> 
+</absnode>
+<absnode node="AbsExprs">
+<position filename="p21.proteus" begLine="2" begColumn="25" endLine="2" endColumn="104"/> 
+<absnode node="IfStmt">
+<position filename="p21.proteus" begLine="2" begColumn="25" endLine="2" endColumn="96"/> 
+<absnode node="BinExpr" value="EQU">
+<position filename="p21.proteus" begLine="2" begColumn="25" endLine="2" endColumn="28"/> 
+<absnode node="ExprName">
+<position filename="p21.proteus" begLine="2" begColumn="25" endLine="2" endColumn="25"/> 
+<symbol token="IDENTIFIER"  lexeme="c">
+<position filename="p21.proteus" begLine="2" begColumn="25" endLine="2" endColumn="25"/> 
+</symbol>
+</absnode>
+<absnode node="AtomExpr">
+<position filename="p21.proteus" begLine="2" begColumn="28" endLine="2" endColumn="28"/> 
+<symbol token="INTCONST"  lexeme="0">
+<position filename="p21.proteus" begLine="2" begColumn="28" endLine="2" endColumn="28"/> 
+</symbol>
+</absnode>
+</absnode>
+<absnode node="AbsExprs">
+<position filename="p21.proteus" begLine="2" begColumn="36" endLine="2" endColumn="40"/> 
+<absnode node="AssignStmt">
+<position filename="p21.proteus" begLine="2" begColumn="36" endLine="2" endColumn="40"/> 
+<absnode node="ExprName">
+<position filename="p21.proteus" begLine="2" begColumn="36" endLine="2" endColumn="38"/> 
+<symbol token="IDENTIFIER"  lexeme="qwe">
+<position filename="p21.proteus" begLine="2" begColumn="36" endLine="2" endColumn="38"/> 
+</symbol>
+</absnode>
+<absnode node="AtomExpr">
+<position filename="p21.proteus" begLine="2" begColumn="40" endLine="2" endColumn="40"/> 
+<symbol token="INTCONST"  lexeme="1">
+<position filename="p21.proteus" begLine="2" begColumn="40" endLine="2" endColumn="40"/> 
+</symbol>
+</absnode>
+</absnode>
+</absnode>
+<absnode node="AbsExprs">
+<position filename="p21.proteus" begLine="2" begColumn="52" endLine="2" endColumn="96"/> 
+<absnode node="IfStmt">
+<position filename="p21.proteus" begLine="2" begColumn="52" endLine="2" endColumn="96"/> 
+<absnode node="BinExpr" value="EQU">
+<position filename="p21.proteus" begLine="2" begColumn="52" endLine="2" endColumn="55"/> 
+<absnode node="ExprName">
+<position filename="p21.proteus" begLine="2" begColumn="52" endLine="2" endColumn="52"/> 
+<symbol token="IDENTIFIER"  lexeme="c">
+<position filename="p21.proteus" begLine="2" begColumn="52" endLine="2" endColumn="52"/> 
+</symbol>
+</absnode>
+<absnode node="AtomExpr">
+<position filename="p21.proteus" begLine="2" begColumn="55" endLine="2" endColumn="55"/> 
+<symbol token="INTCONST"  lexeme="1">
+<position filename="p21.proteus" begLine="2" begColumn="55" endLine="2" endColumn="55"/> 
+</symbol>
+</absnode>
+</absnode>
+<absnode node="AbsExprs">
+<position filename="p21.proteus" begLine="2" begColumn="63" endLine="2" endColumn="67"/> 
+<absnode node="AssignStmt">
+<position filename="p21.proteus" begLine="2" begColumn="63" endLine="2" endColumn="67"/> 
+<absnode node="ExprName">
+<position filename="p21.proteus" begLine="2" begColumn="63" endLine="2" endColumn="65"/> 
+<symbol token="IDENTIFIER"  lexeme="qwe">
+<position filename="p21.proteus" begLine="2" begColumn="63" endLine="2" endColumn="65"/> 
+</symbol>
+</absnode>
+<absnode node="AtomExpr">
+<position filename="p21.proteus" begLine="2" begColumn="67" endLine="2" endColumn="67"/> 
+<symbol token="INTCONST"  lexeme="2">
+<position filename="p21.proteus" begLine="2" begColumn="67" endLine="2" endColumn="67"/> 
+</symbol>
+</absnode>
+</absnode>
+</absnode>
+<absnode node="AbsExprs">
+<position filename="p21.proteus" begLine="2" begColumn="77" endLine="2" endColumn="96"/> 
+<absnode node="AssignStmt">
+<position filename="p21.proteus" begLine="2" begColumn="77" endLine="2" endColumn="96"/> 
+<absnode node="ExprName">
+<position filename="p21.proteus" begLine="2" begColumn="77" endLine="2" endColumn="79"/> 
+<symbol token="IDENTIFIER"  lexeme="qwe">
+<position filename="p21.proteus" begLine="2" begColumn="77" endLine="2" endColumn="79"/> 
+</symbol>
+</absnode>
+<absnode node="BinExpr" value="ADD">
+<position filename="p21.proteus" begLine="2" begColumn="81" endLine="2" endColumn="96"/> 
+<absnode node="FunCall">
+<position filename="p21.proteus" begLine="2" begColumn="81" endLine="2" endColumn="87"/> 
+<absnode node="ExprName">
+<position filename="p21.proteus" begLine="2" begColumn="81" endLine="2" endColumn="83"/> 
+<symbol token="IDENTIFIER"  lexeme="fib">
+<position filename="p21.proteus" begLine="2" begColumn="81" endLine="2" endColumn="83"/> 
+</symbol>
+</absnode>
+<absnode node="AbsExprs">
+<position filename="p21.proteus" begLine="2" begColumn="85" endLine="2" endColumn="87"/> 
+<absnode node="BinExpr" value="SUB">
+<position filename="p21.proteus" begLine="2" begColumn="85" endLine="2" endColumn="87"/> 
+<absnode node="ExprName">
+<position filename="p21.proteus" begLine="2" begColumn="85" endLine="2" endColumn="85"/> 
+<symbol token="IDENTIFIER"  lexeme="c">
+<position filename="p21.proteus" begLine="2" begColumn="85" endLine="2" endColumn="85"/> 
+</symbol>
+</absnode>
+<absnode node="AtomExpr">
+<position filename="p21.proteus" begLine="2" begColumn="87" endLine="2" endColumn="87"/> 
+<symbol token="INTCONST"  lexeme="1">
+<position filename="p21.proteus" begLine="2" begColumn="87" endLine="2" endColumn="87"/> 
+</symbol>
+</absnode>
+</absnode>
+</absnode>
+</absnode>
+<absnode node="FunCall">
+<position filename="p21.proteus" begLine="2" begColumn="90" endLine="2" endColumn="96"/> 
+<absnode node="ExprName">
+<position filename="p21.proteus" begLine="2" begColumn="90" endLine="2" endColumn="92"/> 
+<symbol token="IDENTIFIER"  lexeme="fib">
+<position filename="p21.proteus" begLine="2" begColumn="90" endLine="2" endColumn="92"/> 
+</symbol>
+</absnode>
+<absnode node="AbsExprs">
+<position filename="p21.proteus" begLine="2" begColumn="94" endLine="2" endColumn="96"/> 
+<absnode node="BinExpr" value="SUB">
+<position filename="p21.proteus" begLine="2" begColumn="94" endLine="2" endColumn="96"/> 
+<absnode node="ExprName">
+<position filename="p21.proteus" begLine="2" begColumn="94" endLine="2" endColumn="94"/> 
+<symbol token="IDENTIFIER"  lexeme="c">
+<position filename="p21.proteus" begLine="2" begColumn="94" endLine="2" endColumn="94"/> 
+</symbol>
+</absnode>
+<absnode node="AtomExpr">
+<position filename="p21.proteus" begLine="2" begColumn="96" endLine="2" endColumn="96"/> 
+<symbol token="INTCONST"  lexeme="2">
+<position filename="p21.proteus" begLine="2" begColumn="96" endLine="2" endColumn="96"/> 
+</symbol>
+</absnode>
+</absnode>
+</absnode>
+</absnode>
+</absnode>
+</absnode>
+</absnode>
+</absnode>
+</absnode>
+</absnode>
+<absnode node="ExprName">
+<position filename="p21.proteus" begLine="2" begColumn="102" endLine="2" endColumn="104"/> 
+<symbol token="IDENTIFIER"  lexeme="qwe">
+<position filename="p21.proteus" begLine="2" begColumn="102" endLine="2" endColumn="104"/> 
+</symbol>
+</absnode>
+</absnode>
+</absnode>
+</absnode>
+</absnode>
+</absnode>
+</abstree>
